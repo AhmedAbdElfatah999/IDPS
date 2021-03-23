@@ -3,14 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specification;
 //using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : User
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private readonly IDPSContext _context;
+            private readonly IDPSContext _context;
         public GenericRepository(IDPSContext context)
         {
             _context = context;
@@ -25,8 +26,7 @@ namespace Infrastructure.Data
         {
             return await _context.Set<T>().ToListAsync();
         }
-         
-         /*
+
         public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).FirstOrDefaultAsync();
@@ -46,7 +46,7 @@ namespace Infrastructure.Data
         {
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
-        */
+
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
@@ -62,5 +62,12 @@ namespace Infrastructure.Data
         {
             _context.Set<T>().Remove(entity);
         }
+
+        public async Task<IReadOnlyList<T>> ListAllAsync(DiseasesWithSpecializationSpecification spec)
+        {
+            return await _context.Set<T>().ToListAsync();
+        }
+
+
     }
 }
