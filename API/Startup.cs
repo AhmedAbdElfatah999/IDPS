@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure;
 using Core.Interfaces;
+using API.Helpers;
+using AutoMapper;
 
 namespace API
 {
@@ -35,6 +37,7 @@ namespace API
             services.AddScoped<IDiseaseRepository,DiseaseRepository>();
             services.AddScoped(typeof(IGenericRepository<>),(typeof(GenericRepository<>)));
             services.AddControllers();
+            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddDbContext<IDPSContext>(x =>
             x.UseSqlServer("server=(localdb)\\mssqllocaldb;database=IDPS.db;trusted_connection=true;MultipleActiveResultSets=true"));
         }
@@ -50,6 +53,7 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 

@@ -10,7 +10,7 @@ namespace Infrastructure.Data
 {
     public class IDPSContextSeed
     {
-        public static async Task SeedAsync(IDPSContext context, ILoggerFactory loggerFactory)
+        public static void Seed(IDPSContext context, ILoggerFactory loggerFactory)
         {
             try
             {
