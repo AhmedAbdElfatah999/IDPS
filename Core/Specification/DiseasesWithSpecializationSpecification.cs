@@ -8,6 +8,8 @@ namespace Core.Specification
     {
         public DiseasesWithSpecializationSpecification(DiseaseSpecParams diseaseParams)
             :base(x => 
+                (string.IsNullOrEmpty(diseaseParams.Search) || x.Name.ToLower().Contains(diseaseParams.Search))
+                && 
                 (!diseaseParams.specId.HasValue || x.SpecializationId == diseaseParams.specId)
             )
         {

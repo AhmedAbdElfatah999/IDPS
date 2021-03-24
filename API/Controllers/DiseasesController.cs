@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Core.Specification;
 using AutoMapper;
 using API.Dtos;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -29,15 +30,21 @@ namespace API.Controllers
         }
 
     [HttpGet("Disease")]
-    public async Task<ActionResult<IReadOnlyList<List<Disease>>>> GetDiseases
-    ([FromQuery]DiseaseSpecParams diseaseParams)
+    public async Task<ActionResult<Pagination<List<Disease>>>> GetDiseases(
+        [FromQuery]DiseaseSpecParams diseaseParams)
     {
         var spec = new DiseasesWithSpecializationSpecification(diseaseParams);
+        
+        var countSpec = new DiseaseWithFiltersForCountSpecification(diseaseParams);
+
+        var totalItems = await _DiseaseRepo.CountAsync(spec);
+
         var diseases = await _DiseaseRepo.ListAsync(spec);
+        
         var data = _mapper
         .Map<IReadOnlyList<Disease>, IReadOnlyList<DiseaseToReturnDto>>(diseases);
-        return Ok(data);
-      
+        
+        return Ok(new Pagination<DiseaseToReturnDto>(diseaseParams.PageIndex, diseaseParams.PageSize, totalItems, data));
     }
 
     [HttpGet("{id}")]
