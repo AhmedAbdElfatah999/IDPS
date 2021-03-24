@@ -6,17 +6,23 @@ namespace Core.Specification
 {
     public class DiseasesWithSpecializationSpecification : BaseSpecification<Disease>
     {
-        public DiseasesWithSpecializationSpecification() 
-        {
-            AddInclude(x=>x.Specialization);
 
-        }
-
-        public DiseasesWithSpecializationSpecification(int id) 
-            : base(x => x.Id == id)
+        public DiseasesWithSpecializationSpecification(DiseaseSpecParams diseaseParams)
+            :base(x => 
+                (!diseaseParams.specId.HasValue || x.SpecializationId == diseaseParams.specId)
+            )
         {
             AddInclude(x => x.Specialization);
-          
+            AddOrderBy(x => x.Name);
+            ApplyPaging(diseaseParams.PageSize * (diseaseParams.PageIndex -1),
+             diseaseParams.PageSize);
+            if(!string.IsNullOrEmpty(diseaseParams.Sort))
+            {
+                AddOrderBy(p => p.Name);
+            }
+
         }
+
+
     }
 }

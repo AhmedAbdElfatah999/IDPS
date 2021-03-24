@@ -29,9 +29,12 @@ namespace API.Controllers
         }
 
     [HttpGet("Disease")]
+
     public async Task<ActionResult<IReadOnlyList<List<Disease>>>> GetDiseases()
     {
         var spec = new DiseasesWithSpecializationSpecification();
+
+
         var diseases = await _DiseaseRepo.ListAsync(spec);
         var data = _mapper
         .Map<IReadOnlyList<Disease>, IReadOnlyList<DiseaseToReturnDto>>(diseases);

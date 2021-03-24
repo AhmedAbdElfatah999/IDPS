@@ -11,7 +11,10 @@ namespace Infrastructure.Data
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
+
         private readonly IDPSContext _context;
+
+
         public GenericRepository(IDPSContext context)
         {
             _context = context;
