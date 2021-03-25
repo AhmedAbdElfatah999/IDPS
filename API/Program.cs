@@ -26,7 +26,7 @@ namespace API
                 {
                     var context = services.GetRequiredService<IDPSContext>();
                     await context.Database.MigrateAsync();
-                    IDPSContextSeed.Seed(context, loggerFactory);
+                    await IDPSContextSeed.SeedAsync(context, loggerFactory);
                     //var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     ///var identityContext = services.GetRequiredService<AppIdentityDbContext>();
                     //await identityContext.Database.MigrateAsync();

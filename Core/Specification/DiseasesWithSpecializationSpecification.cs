@@ -6,6 +6,12 @@ namespace Core.Specification
 {
     public class DiseasesWithSpecializationSpecification : BaseSpecification<Disease>
     {
+        public DiseasesWithSpecializationSpecification(int id) 
+            : base(x => x.Id == id)
+        {
+            AddInclude(x => x.Specialization);
+
+        }
 
         public DiseasesWithSpecializationSpecification(DiseaseSpecParams diseaseParams)
             :base(x => 

@@ -7,8 +7,10 @@ namespace Infrastructure.Data
     {
         public IDPSContext(DbContextOptions<IDPSContext> options) : base(options)
         {
+            
         }
 
         public DbSet<Disease> Diseases {get; set;}
+        public DbSet<Specialization> Specializations{get;set;}
     }
 }
