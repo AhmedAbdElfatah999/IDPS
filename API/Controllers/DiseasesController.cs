@@ -51,7 +51,7 @@ namespace API.Controllers
     public async Task<ActionResult<DiseaseToReturnDto>> GetDisease(int id)
     {
         var spec = new DiseasesWithSpecializationSpecification(id);
-       var disease= await _DiseaseRepo.GetEntityWithSpec(spec);
+        var disease= await _DiseaseRepo.GetEntityWithSpec(spec);
         
       // if (disease == null) return NotFound(new ApiResponse(404));
 

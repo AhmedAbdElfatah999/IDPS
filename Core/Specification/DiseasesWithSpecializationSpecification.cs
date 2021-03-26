@@ -6,6 +6,7 @@ namespace Core.Specification
 {
     public class DiseasesWithSpecializationSpecification : BaseSpecification<Disease>
     {
+
         public DiseasesWithSpecializationSpecification(DiseaseSpecParams diseaseParams)
             :base(x => 
                 (string.IsNullOrEmpty(diseaseParams.Search) || x.Name.ToLower().Contains(diseaseParams.Search))
@@ -21,13 +22,14 @@ namespace Core.Specification
             {
                 AddOrderBy(p => p.Name);
             }
+
         }
 
-        public DiseasesWithSpecializationSpecification(int id) 
-            : base(x => x.Id == id)
+        public DiseasesWithSpecializationSpecification(int id) :
+        base(x => x.Id == id)
         {
             AddInclude(x => x.Specialization);
-          
         }
     }
+
 }
