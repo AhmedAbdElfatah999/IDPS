@@ -8,11 +8,12 @@ using Core.Specification;
 using AutoMapper;
 using API.Dtos;
 using API.Helpers;
+using API.Errors;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Controllers
 {
-    [ApiController]
-    public class DiseasesController : ControllerBase
+    public class DiseasesController : BaseApiController
     {
 
         public readonly IGenericRepository<Disease> _DiseaseRepo;
@@ -27,33 +28,33 @@ namespace API.Controllers
             _SpecializationRepo = SpecializationRepo;
             _DiseaseRepo = DiseaseRepo;
 
-        }
+        } 
+        [HttpGet("getdiseases2")]
+        public string GetDiseases2(){
+        return "Hello World";
+    }
 
-    [HttpGet("Disease")]
-    public async Task<ActionResult<Pagination<List<Disease>>>> GetDiseases(
-        [FromQuery]DiseaseSpecParams diseaseParams)
+    [HttpGet("Diseases")]
+  
+    public async Task<ActionResult<Pagination<Disease>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
     {
-        var spec = new DiseasesWithSpecializationSpecification(diseaseParams);
-        
-        var countSpec = new DiseaseWithFiltersForCountSpecification(diseaseParams);
-
-        var totalItems = await _DiseaseRepo.CountAsync(spec);
-
+        var spec = new DiseasesWithSpecializationSpecification(DiseaseParams);
         var diseases = await _DiseaseRepo.ListAsync(spec);
-        
         var data = _mapper
         .Map<IReadOnlyList<Disease>, IReadOnlyList<DiseaseToReturnDto>>(diseases);
-        
-        return Ok(new Pagination<DiseaseToReturnDto>(diseaseParams.PageIndex, diseaseParams.PageSize, totalItems, data));
+        return Ok(data);
+      
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status404NotFound)]
     public async Task<ActionResult<DiseaseToReturnDto>> GetDisease(int id)
     {
         var spec = new DiseasesWithSpecializationSpecification(id);
-        var disease= await _DiseaseRepo.GetEntityWithSpec(spec);
+       var disease= await _DiseaseRepo.GetEntityWithSpec(spec);
         
-      // if (disease == null) return NotFound(new ApiResponse(404));
+      if (disease == null) return NotFound(new ApiResponse(404));
 
        return _mapper.Map<Disease, DiseaseToReturnDto>(disease);
     }

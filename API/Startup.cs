@@ -17,6 +17,10 @@ using Infrastructure;
 using Core.Interfaces;
 using API.Helpers;
 using AutoMapper;
+using API.Middleware;
+using API.Errors;
+using Microsoft.OpenApi.Models;
+using API.Extensions;
 
 namespace API
 {
@@ -39,7 +43,7 @@ namespace API
             services.AddControllers();
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddDbContext<IDPSContext>(x =>
-            x.UseSqlServer("server=(localdb)\\mssqllocaldb;database=IDPS.db;trusted_connection=true;MultipleActiveResultSets=true"));
+            x.UseSqlServer("server=(localdb)\\mssqllocaldb;database=IDPS.db;trusted_connection=true;MultipleActiveResultSets=true",x => x.MigrationsAssembly("API")));
             services.AddCors(opt => 
             {
                 opt.AddPolicy("CorsPolicy", policy => 
@@ -47,6 +51,8 @@ namespace API
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
                 });
             });
+           services.AddApplicationServices();
+           services.AddSwaggerDocumentation();   
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +62,8 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseMiddleware <ExceptionMiddleware>();
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseHttpsRedirection();
 
@@ -65,6 +73,8 @@ namespace API
             app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
+
+            app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {

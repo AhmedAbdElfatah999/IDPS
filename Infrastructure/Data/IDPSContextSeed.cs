@@ -3,79 +3,52 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Core.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Data
 {
     public class IDPSContextSeed
     {
-        public static void Seed(IDPSContext context, ILoggerFactory loggerFactory)
+        public static async Task SeedAsync(IDPSContext context, ILoggerFactory loggerFactory)
         {
             try
             {
-                /*
+             
                 var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-                if (!context.ProductBrands.Any())
+                if (!context.Specializations.Any())
                 {
-                    var brandsData =
-                        File.ReadAllText(path + @"/Data/SeedData/brands.json");
+                    var specializationData =
+                        File.ReadAllText("../Infrastructure/Data/SeedData/specialization.json");
 
-                    var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
+                    var specializations = JsonSerializer.Deserialize<List<Specialization>>(specializationData);
 
-                    foreach (var item in brands)
+                    foreach (var item in specializations)
                     {
-                        context.ProductBrands.Add(item);
+                        context.Specializations.Add(item);
                     }
 
                     await context.SaveChangesAsync();
                 }
 
-                if (!context.ProductTypes.Any())
+                if (!context.Diseases.Any())
                 {
-                    var typesData =
-                        File.ReadAllText(path + @"/Data/SeedData/types.json");
+                    var diseaseData =
+                        File.ReadAllText("../Infrastructure/Data/SeedData/Disease.json");
 
-                    var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
+                    var disease = JsonSerializer.Deserialize<List<Disease>>(diseaseData);
 
-                    foreach (var item in types)
+                    foreach (var item in disease)
                     {
-                        context.ProductTypes.Add(item);
+                        context.Diseases.Add(item);
                     }
 
                     await context.SaveChangesAsync();
                 }
 
-                if (!context.Products.Any())
-                {
-                    var productsData =
-                        File.ReadAllText(path + @"/Data/SeedData/products.json");
-
-                    var products = JsonSerializer.Deserialize<List<Product>>(productsData);
-
-                    foreach (var item in products)
-                    {
-                        context.Products.Add(item);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-
-                if (!context.DeliveryMethods.Any())
-                {
-                    var dmData =
-                        File.ReadAllText(path + @"/Data/SeedData/delivery.json");
-
-                    var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
-
-                    foreach (var item in methods)
-                    {
-                        context.DeliveryMethods.Add(item);
-                    }
-
-                    await context.SaveChangesAsync();
-                }*/
             }
             catch (Exception ex)
             {

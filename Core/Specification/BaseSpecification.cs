@@ -24,13 +24,14 @@ namespace Core.Specification
 
         public bool IsPagingEnabled {get; private set;}
 
-        public Expression<Func<T, object>> OrderBy {get; private set;}
-
-        public Expression<Func<T, object>> OrderByDescending {get; private set;}
 
         protected void AddInclude(Expression<Func<T,object>> includeExpression){
                Includes.Add(includeExpression);
         }
+        public Expression<Func<T, object>> OrderBy {get; private set;}
+
+        public Expression<Func<T, object>> OrderByDescending {get; private set;}
+
         protected void AddOrderBy(Expression<Func<T,object>> orderByExpression)
         {
             OrderBy = orderByExpression;

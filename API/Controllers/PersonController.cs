@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
-    public class PersonController :ControllerBase
+    
+    public class PersonController :BaseApiController
     {
         private readonly IGenericRepository<Person> _PersonRepo;
 
