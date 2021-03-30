@@ -53,17 +53,20 @@ namespace Infrastructure.Data
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
+            _context.SaveChangesAsync(); 
         }
 
         public void Update(T entity)
         {
             _context.Set<T>().Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChangesAsync();
         }
 
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
+             _context.SaveChangesAsync();
         }
 
         public async Task<IReadOnlyList<T>> ListAllAsync(DiseasesWithSpecializationSpecification spec)

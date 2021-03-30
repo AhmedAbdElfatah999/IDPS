@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [ApiController]
-    public class AdminController : ControllerBase
+    public class AdminController : BaseApiController
     {
         private readonly IGenericRepository<Admin> _AdminRepo;
 

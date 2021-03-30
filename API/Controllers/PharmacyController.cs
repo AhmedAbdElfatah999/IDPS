@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
-    public class PharmacyController : ControllerBase
+    
+    public class PharmacyController : BaseApiController
     {
         private readonly IGenericRepository<Pharmacy> _PharmacyRepo;
 
