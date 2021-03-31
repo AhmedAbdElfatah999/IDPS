@@ -5,7 +5,7 @@ namespace Core.Specification
     public class DoctorsWithSpecializationSpecification: BaseSpecification<Doctor>
     {
     public  DoctorsWithSpecializationSpecification(int id) 
-            : base(x => x.Id == id)
+            : base(x => x.SpecializationId == id)
         {
             AddInclude(x => x.Specialization);
 

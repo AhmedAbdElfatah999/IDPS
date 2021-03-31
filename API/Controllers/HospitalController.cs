@@ -34,7 +34,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hospital>> GetAdmin(int id)
+        public async Task<ActionResult<Hospital>> GetHospital(int id)
         {
            return await _HospitalRepo.GetByIdAsync(id);
         }

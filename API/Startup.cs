@@ -11,6 +11,7 @@ using API.Helpers;
 using AutoMapper;
 using API.Middleware;
 using API.Extensions;
+using Infrastructure.Identity;
 
 namespace API
 {
@@ -34,6 +35,10 @@ namespace API
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddDbContext<IDPSContext>(x =>
             x.UseSqlServer("server=(localdb)\\mssqllocaldb;database=IDPS.db;trusted_connection=true;MultipleActiveResultSets=true",x => x.MigrationsAssembly("API")));
+            services.AddDbContext<AppIdentityDbContext>(x => 
+            {
+                x.UseSqlServer(_configuration.GetConnectionString("IdentityConnection"));
+            });
             services.AddCors(opt => 
             {
                 opt.AddPolicy("CorsPolicy", policy => 
