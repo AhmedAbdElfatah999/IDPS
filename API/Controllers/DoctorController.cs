@@ -10,8 +10,8 @@ namespace API.Controllers
 
     public class DoctorController : BaseApiController
     {
-         private readonly IGenericRepository<Doctor> _DoctorRepo;
-
+        private readonly IGenericRepository<Doctor> _DoctorRepo;
+        public readonly IGenericRepository<Specialization> _SpecializationRepo; 
         private readonly IMapper _mapper;
         public DoctorController(IGenericRepository<Doctor> DoctorRepo, IMapper mapper)
         {
@@ -35,6 +35,15 @@ namespace API.Controllers
         {
            return await _DoctorRepo.GetByIdAsync(id);
         }
-        
+    [HttpGet("specializations")]
+    public async Task<ActionResult<IReadOnlyList<Specialization>>> GetDoctorSpecialization()
+    {
+        return Ok(await _SpecializationRepo.ListAllAsync());
+    } 
+
+
+
+
+
     }
 }
