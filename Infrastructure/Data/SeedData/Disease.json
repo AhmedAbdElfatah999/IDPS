@@ -1,0 +1,16 @@
+[
+    {
+ 
+      "Name": "test",
+      "Description":"teeeest",
+      "PictureUrl":"1.jpg",
+      "SpecializationId":1
+    },
+    {
+
+        "Name": "test2",
+        "Description":"teeeest222",
+        "PictureUrl":"1.jpg",
+        "SpecializationId":2
+    }
+  ]
