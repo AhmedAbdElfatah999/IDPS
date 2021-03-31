@@ -11,36 +11,36 @@ using API.Helpers;
 using API.Errors;
 using Microsoft.AspNetCore.Http;
 using System.IO;
-
+using System.Linq;
 
 namespace API.Controllers
 {
-    public class diseasesController : BaseApiController
+    public class DiseasesController : BaseApiController
     {
 
-        public readonly IGenericRepository<disease> _diseaseRepo;
+        public readonly IGenericRepository<Disease> _DiseaseRepo;
         public readonly IGenericRepository<Specialization> _SpecializationRepo;  
         private readonly IMapper _mapper;
-        public diseasesController(IGenericRepository<disease> diseaseRepo,
+        public DiseasesController(IGenericRepository<Disease> DiseaseRepo,
       
 
         IGenericRepository<Specialization> SpecializationRepo, IMapper mapper)
         {
             _mapper = mapper;
             _SpecializationRepo = SpecializationRepo;
-            _diseaseRepo = diseaseRepo;
+            _DiseaseRepo = DiseaseRepo;
 
         } 
 
 
-    [HttpGet("diseases")]
+    [HttpGet("Diseases")]
   
-    public async Task<ActionResult<Pagination<disease>>> Getdiseases([FromQuery] diseaseSpecParams diseaseParams)
+    public async Task<ActionResult<Pagination<Disease>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
     {
-        var spec = new diseasesWithSpecializationSpecification(diseaseParams);
-        var diseases = await _diseaseRepo.ListAsync(spec);
+        var spec = new DiseasesWithSpecializationSpecification(DiseaseParams);
+        var Diseases = await _DiseaseRepo.ListAsync(spec);
         var data = _mapper
-        .Map<IReadOnlyList<disease>, IReadOnlyList<diseaseToReturnDto>>(diseases);
+        .Map<IReadOnlyList<Disease>, IReadOnlyList<DiseaseToReturnDto>>(Diseases);
         return Ok(data);
       
     }
@@ -48,95 +48,100 @@ namespace API.Controllers
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<diseaseToReturnDto>> Getdisease(int id)
+    public async Task<ActionResult<DiseaseToReturnDto>> GetDisease(int id)
     {
-        var spec = new diseasesWithSpecializationSpecification(id);
-       var disease= await _diseaseRepo.GetEntityWithSpec(spec);
+        var spec = new DiseasesWithSpecializationSpecification(id);
+       var disease= await _DiseaseRepo.GetEntityWithSpec(spec);
         
       if (disease == null) return NotFound(new ApiResponse(404));
 
-       return _mapper.Map<disease, diseaseToReturnDto>(disease);
+       return _mapper.Map<Disease, DiseaseToReturnDto>(disease);
     }
 
     [HttpGet("specializations")]
-    public async Task<ActionResult<IReadOnlyList<Specialization>>> GetdiseaseSpecialization()
+    public async Task<ActionResult<IReadOnlyList<Specialization>>> GetDiseaseSpecialization()
     {
         return Ok(await _SpecializationRepo.ListAllAsync());
     }
     //------------------------------------------------------
-   //Create New disease
+   //Create New Disease
     [HttpGet]
     public IActionResult Create()
         {
             return Ok();
         }
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Name,Description,PictureUrl,SpecializationId")] disease disease)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Id,Name,Description,PictureUrl,SpecializationId")] Disease Disease)
         {
-             var file = Request.Form.Files[0];
+            var file = Request.Form.Files[0];
             if ((file != null && file.Length > 0))
-                {
-                  var fileName = Path.GetFileName(file.FileName);
-                  var path = Path.Combine("wwwroot/images/diseases", fileName);
-                  var fileStream = new FileStream(path, FileMode.Create);  
-                  file.CopyTo(fileStream);  
-                  disease.PictureUrl = fileName;
-
-                }
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine("wwwroot/images/Diseases", fileName);
+                var fileStream = new FileStream(path, FileMode.Create);
+                file.CopyTo(fileStream);
+                Disease.PictureUrl = fileName;
+              
+            }
             if (ModelState.IsValid)
             {
-                await _diseaseRepo.Add(disease);  
-            }else
-            {
-               return await BadRequest(new ApiResponse(400));
+                _DiseaseRepo.Add(Disease);
+                return Ok();
             }
-            
-        }
-    //To delete disease    
-    [HttpPost]
-    public async Task<IActionResult> Delete(disease disease)
-    {
-       await _diseaseRepo.Delete(disease);
-    }  
+            else
+            {
+                return NotFound();
+            }
 
-    //to update disease
-    [HttpGet]
+        }
+        //To delete Disease    
+        [HttpPost]
+        public ActionResult Delete(Disease Disease)
+        {
+            _DiseaseRepo.Delete(Disease);
+            return Ok();
+        }
+
+        //to update Disease
+        [HttpGet]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult<diseaseToReturnDto>> Edit(int? id)
+    public async Task<ActionResult<DiseaseToReturnDto>> Edit(int? id)
     {
             if (id == null)
             {
-                return await BadRequest(new ApiResponse(400));
+                return BadRequest(new ApiResponse(400));
             }
 
-       var spec = new diseasesWithSpecializationSpecification(id);
-       var disease= await _diseaseRepo.GetEntityWithSpec(spec);
-            if (disease == null)
+       var spec = new DiseasesWithSpecializationSpecification((int)id);
+       var Disease= await _DiseaseRepo.GetEntityWithSpec(spec);
+            if (Disease == null)
             {
-                return await BadRequest(new ApiResponse(400));
+                return  BadRequest(new ApiResponse(400));
             }
-            return _mapper.Map<disease, diseaseToReturnDto>(disease);
+            return _mapper.Map<Disease, DiseaseToReturnDto>(Disease);
     }
-   [HttpPost]
-   public async Task<IActionResult> Edit([Bind("Id,Name,Description,PictureUrl,SpecializationId")] disease disease)
-   {
-      if (Request.Form.Files.Any())
-         {
-            var file = Request.Form.Files[0];
-            var fileName = Path.GetFileName(file.FileName);
-            var path = Path.Combine("wwwroot/images/diseases", fileName);
-            var fileStream = new FileStream(path, FileMode.Create);          
-            file.CopyTo(fileStream);  
-            disease.PictureUrl = fileName;             
-            _diseaseRepo.Update(disease);
-            return await Ok();                    
+        [HttpPost]
+        public IActionResult Edit([Bind("Id,Name,Description,PictureUrl,SpecializationId")] Disease Disease)
+        {
+            if (Request.Form.Files.Any())
+            {
+                var file = Request.Form.Files[0];
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine("wwwroot/images/Diseases", fileName);
+                var fileStream = new FileStream(path, FileMode.Create);
+                file.CopyTo(fileStream);
+                Disease.PictureUrl = fileName;
+                _DiseaseRepo.Update(Disease);
+                return Ok();
 
-        }else{
-            _diseaseRepo.Update(disease);
-            return await Ok();
             }
-   }   
+            else
+            {
+                _DiseaseRepo.Update(Disease);
+                return Ok();
+            }
+        }
 
-}
+    }
 }

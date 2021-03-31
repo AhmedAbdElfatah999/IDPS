@@ -42,50 +42,53 @@ namespace API.Controllers
         {
             return Ok();
         }
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Name")] Specialization specialization)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Id,Name")] Specialization specialization)
         {
 
             if (ModelState.IsValid)
             {
-                await _SpecializationRepo.Add(specialization);  
-            }else
-            {
-               return await BadRequest(new ApiResponse(400));
+                _SpecializationRepo.Add(specialization);
+                return Ok();
             }
-            
+            else
+            {
+                return NotFound();
+            }
+
         }
     //To delete Specialization    
     [HttpPost]
-    public async Task<IActionResult> Delete(Specialization specialization)
+    public  IActionResult Delete(Specialization specialization)
     {
-       await _SpecializationRepo.Delete(specialization);
+       _SpecializationRepo.Delete(specialization);
+       return Ok();
     }  
 
     //to update Specialization
     [HttpGet]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult<Specialization>> Edit(int? id)
+    public ActionResult<Specialization> Edit(int? id)
     {
             if (id == null)
             {
-                return await BadRequest(new ApiResponse(400));
+                return NotFound();
             }
 
-            var specialization= await _SpecializationRepo.GetByIdAsync(id);
+            var specialization= _SpecializationRepo.GetByIdAsync((int)id);
             if (specialization == null)
             {
-                return await BadRequest(new ApiResponse(400));
+                return NotFound();
             }
-            return specialization;
+            return Ok(specialization);
     }
-   [HttpPost]
-   public async Task<IActionResult> Edit([Bind("Id,Name")] Specialization Specialization)
-   {
-                   
-         _SpecializationRepo.Update(Specialization);
-            return await Ok();                    
-   }                   
+        [HttpPost]
+        public IActionResult Edit([Bind("Id,Name")] Specialization Specialization)
+        {
+
+            _SpecializationRepo.Update(Specialization);
+            return Ok();
+        }
     }
 }

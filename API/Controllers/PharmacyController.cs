@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -42,71 +45,76 @@ namespace API.Controllers
         {
             return Ok();
         }
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Name,Phone,PictureUrl,NumberOfBranches")] Pharmacy pharmacy)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Id,Name,Phone,PictureUrl,NumberOfBranches")] Pharmacy pharmacy)
         {
-             var file = Request.Form.Files[0];
+            var file = Request.Form.Files[0];
             if ((file != null && file.Length > 0))
-                {
-                  var fileName = Path.GetFileName(file.FileName);
-                  var path = Path.Combine("wwwroot/images/pharmacies", fileName);
-                  var fileStream = new FileStream(path, FileMode.Create);  
-                  file.CopyTo(fileStream);  
-                  pharmacy.PictureUrl = fileName;
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine("wwwroot/images/pharmacies", fileName);
+                var fileStream = new FileStream(path, FileMode.Create);
+                file.CopyTo(fileStream);
+                pharmacy.PictureUrl = fileName;
 
-                }
+            }
             if (ModelState.IsValid)
             {
-                await _PharmacyRepo.Add(pharmacy);  
-            }else
-            {
-               return await BadRequest(new ApiResponse(400));
+                _PharmacyRepo.Add(pharmacy);
+                return Ok();
             }
-            
-        }
-    //To delete pharmacy    
-    [HttpPost]
-    public async Task<IActionResult> Delete(pharmacy pharmacy)
-    {
-       await _PharmacyRepo.Delete(pharmacy);
-    }  
+            else
+            {
+                return NotFound();
+            }
 
-    //to update pharmacy
-    [HttpGet]
+        }
+        //To delete pharmacy    
+        [HttpPost]
+        public IActionResult Delete(Pharmacy pharmacy)
+        {
+            _PharmacyRepo.Delete(pharmacy);
+            return Ok();
+        }
+
+        //to update pharmacy
+        [HttpGet]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult<Pharmacy>> Edit(int? id)
+    public async Task<ActionResult<Pharmacy>> Edit(int? id)
     {
             if (id == null)
             {
-                return await BadRequest(new ApiResponse(400));
+                return NotFound();
             }
 
-            var pharmacy= await _PharmacyRepo.GetByIdAsync(id);
+            var pharmacy= await _PharmacyRepo.GetByIdAsync((int)id);
             if (pharmacy == null)
             {
-                return await BadRequest(new ApiResponse(400));
+                return NotFound();
             }
             return pharmacy;
     }
-   [HttpPost]
-   public async Task<IActionResult> Edit([Bind("Id,Name,Phone,PictureUrl,NumberOfBranches")] Pharmacy pharmacy)
-   {
-      if (Request.Form.Files.Any())
-         {
-            var file = Request.Form.Files[0];
-            var fileName = Path.GetFileName(file.FileName);
-            var path = Path.Combine("wwwroot/images/pharmacies", fileName);
-            var fileStream = new FileStream(path, FileMode.Create);          
-            file.CopyTo(fileStream);  
-            Pharmacy.PictureUrl = fileName;             
-            _PharmacyRepo.Update(pharmacy);
-            return await Ok();                    
+        [HttpPost]
+        public IActionResult Edit([Bind("Id,Name,Phone,PictureUrl,NumberOfBranches")] Pharmacy pharmacy)
+        {
+            if (Request.Form.Files.Any())
+            {
+                var file = Request.Form.Files[0];
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine("wwwroot/images/pharmacies", fileName);
+                var fileStream = new FileStream(path, FileMode.Create);
+                file.CopyTo(fileStream);
+                pharmacy.PictureUrl = fileName;
+                _PharmacyRepo.Update(pharmacy);
+                return Ok();
 
-        }else{
-            _PharmacyRepo.Update(pharmacy);
-            return await Ok();
             }
-   }           
+            else
+            {
+                _PharmacyRepo.Update(pharmacy);
+                return Ok();
+            }
+        }
     }
 }
