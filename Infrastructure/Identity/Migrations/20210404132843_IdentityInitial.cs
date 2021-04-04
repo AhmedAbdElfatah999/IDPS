@@ -22,6 +22,40 @@ namespace Infrastructure.Identity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Specialization",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Specialization", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
                 {
@@ -43,31 +77,25 @@ namespace Infrastructure.Identity.Migrations
                     Name = table.Column<string>(nullable: true),
                     Gender = table.Column<string>(nullable: true),
                     PictureUrl = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: false),
                     Address = table.Column<string>(nullable: true),
-                    LastLogin = table.Column<DateTimeOffset>(nullable: false)
+                    LastLogin = table.Column<DateTimeOffset>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    MyClinicAddress = table.Column<string>(nullable: true),
+                    MyClinicName = table.Column<string>(nullable: true),
+                    WorkHours = table.Column<int>(nullable: true),
+                    SpecializationId = table.Column<int>(nullable: true),
+                    Weight = table.Column<double>(nullable: true),
+                    Hight = table.Column<double>(nullable: true),
+                    BloodType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
+                        name: "FK_AspNetUsers_Specialization_SpecializationId",
+                        column: x => x.SpecializationId,
+                        principalTable: "Specialization",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -185,6 +213,11 @@ namespace Infrastructure.Identity.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_SpecializationId",
+                table: "AspNetUsers",
+                column: "SpecializationId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -219,6 +252,9 @@ namespace Infrastructure.Identity.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Specialization");
         }
     }
 }
