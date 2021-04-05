@@ -79,7 +79,7 @@ namespace Infrastructure.Identity.Migrations
                     PictureUrl = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: false),
                     Address = table.Column<string>(nullable: true),
-                    LastLogin = table.Column<DateTimeOffset>(nullable: false),
+                    LastLogin = table.Column<DateTime>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     MyClinicAddress = table.Column<string>(nullable: true),
                     MyClinicName = table.Column<string>(nullable: true),

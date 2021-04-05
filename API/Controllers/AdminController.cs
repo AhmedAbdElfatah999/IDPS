@@ -11,6 +11,7 @@ using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace API.Controllers
 {
@@ -26,14 +27,17 @@ namespace API.Controllers
         //_signInManager used to check the Password if exists or not
         private readonly SignInManager<Person> _signInManager;
         private readonly ITokenService _tokenService;
+         private readonly RoleManager<IdentityRole> _roleManager;  
        //Initialize them in the controller
-        public AdminController(IPersonGenericRepository<Admin> AdminRepo, IMapper mapper,UserManager<Person> userManager, SignInManager<Person> signInManager,ITokenService tokenService)
+        public AdminController(IPersonGenericRepository<Admin> AdminRepo, IMapper mapper,UserManager<Person> userManager,
+         SignInManager<Person> signInManager,ITokenService tokenService,RoleManager<IdentityRole> roleManager)
         {
             _AdminRepo = AdminRepo;
             _mapper = mapper;
             _signInManager=signInManager;
             _userManager=userManager;
             _tokenService=tokenService;
+            _roleManager=roleManager;
         }
 
         [HttpGet("Admins")]
@@ -86,39 +90,58 @@ namespace API.Controllers
             var result = _signInManager.UserManager.Users.Where(x=>x.Password==loginDto.Password);
 
            if (result ==null) return Unauthorized(new ApiResponse(401));
-
+            //Last Login Functionality
+            TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)admin.LastLogin);
+            admin.LastLogin = DateTime.Now;
+            var lastLoginResult = await _userManager.UpdateAsync(admin);
+            if (!lastLoginResult.Succeeded)
+            {
+                throw new InvalidOperationException("Unexpected error occurred setting the last login date");
+            }
             return new AdminDto
             {
                 Email = admin.Email,
                 Token =_tokenService.CreateToken(admin),
-                DisplayName = admin.Name
+                DisplayName = admin.Name,
+                LastLogin=LastLoginDate
+
             };
+
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<AdminDto>> Register(Admin admin)
         {
+            //Check the Email 
             if (CheckEmailExistsAsync(admin.Email).Result.Value)
             {
                 return new BadRequestObjectResult(new ApiValidationErrorResponse{Errors = new []{"Email address is in use"}});
             }
-
-            var NewAdmin = new Admin
-            {
-                Name = admin.Name,
-                Email = admin.Email,
-                UserName = admin.UserName
-            };
-
+            //Check the new admin data
             var result = await _userManager.CreateAsync(admin);
-
-            if (!result.Succeeded) return BadRequest(new ApiResponse(400));
-
+            if (!result.Succeeded)  
+                return NotFound("Admin creation failed! Please check user details and try again.");
+            //Add Role 
+                  
+               
+            if (await _roleManager.RoleExistsAsync(PersonRoles.Admin))  
+            {  
+                await _userManager.AddToRoleAsync(admin, PersonRoles.Admin);  
+            }     
+            //Last Login Functionality
+            TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)admin.LastLogin);
+            admin.LastLogin = DateTime.Now;
+            var lastLoginResult = await _userManager.UpdateAsync(admin);
+            if (!lastLoginResult.Succeeded)
+            {
+                throw new InvalidOperationException("Unexpected error occurred setting the last login date");
+            }
             return new  AdminDto
             {
                 DisplayName = admin.Name,
                 Token = _tokenService.CreateToken(admin),
-                Email = admin.Email
+                Email = admin.Email,
+                LastLogin=LastLoginDate
             };
         }
 

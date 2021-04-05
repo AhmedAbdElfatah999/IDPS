@@ -14,6 +14,6 @@ namespace Core.Entities
         [RegularExpression("(?=^.{6,10}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\\s).*$", ErrorMessage = "Password must have 1 Uppercase, 1 Lowercase, 1 number, 1 non alphanumeric and at least 6 characters")]
         public string Password { get; set; }
         public string Address {get; set;}
-        public DateTimeOffset LastLogin { get; set; }
+        public DateTime LastLogin { get; set; }
     }
 }

@@ -33,7 +33,7 @@ namespace API.Controllers
         } 
 
 
-    [HttpGet("Diseases")]
+    [HttpGet("AllDiseases")]
   
     public async Task<ActionResult<Pagination<Disease>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
     {

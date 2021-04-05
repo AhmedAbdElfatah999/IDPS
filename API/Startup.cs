@@ -7,12 +7,15 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure;
 using Core.Interfaces;
+using Core.Entities;
 using API.Helpers;
 using AutoMapper;
 using API.Middleware;
 using API.Extensions;
 using Infrastructure.Identity;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace API
 {
@@ -44,6 +47,12 @@ namespace API
             });
            services.AddApplicationServices();
            services.AddIdentityServices(_configuration);
+
+            // For Identity  
+            services.AddIdentity<Person, IdentityRole>()  
+                .AddEntityFrameworkStores<AppIdentityDbContext>()  
+                .AddDefaultTokenProviders();  
+           
            services.AddSwaggerDocumentation();             
             services.AddCors(opt => 
             {
