@@ -10,10 +10,10 @@ namespace API.Controllers
     
     public class PersonController :BaseApiController
     {
-        private readonly IGenericRepository<Person> _PersonRepo;
+        private readonly IPersonGenericRepository<Person> _PersonRepo;
 
         private readonly IMapper _mapper;
-        public PersonController(IGenericRepository<Person> PersonRepo, IMapper mapper)
+        public PersonController(IPersonGenericRepository<Person> PersonRepo, IMapper mapper)
         {
             _PersonRepo = PersonRepo;
             _mapper = mapper;

@@ -12,6 +12,7 @@ using AutoMapper;
 using API.Middleware;
 using API.Extensions;
 using Infrastructure.Identity;
+using Infrastructure.Services;
 
 namespace API
 {
@@ -31,6 +32,8 @@ namespace API
         {
             services.AddScoped<IDiseaseRepository,DiseaseRepository>();
             services.AddScoped(typeof(IGenericRepository<>),(typeof(GenericRepository<>)));
+            services.AddScoped(typeof(IPersonGenericRepository<>),(typeof(PersonGenericRepository<>)));
+            services.AddScoped<ITokenService,TokenService>();
             services.AddControllers();
             services.AddAutoMapper(typeof(MappingProfiles));
             services.AddDbContext<IDPSContext>(x =>
@@ -39,6 +42,9 @@ namespace API
             {
                 x.UseSqlServer(_configuration.GetConnectionString("IdentityConnection"));
             });
+           services.AddApplicationServices();
+           services.AddIdentityServices(_configuration);
+           services.AddSwaggerDocumentation();             
             services.AddCors(opt => 
             {
                 opt.AddPolicy("CorsPolicy", policy => 
@@ -46,8 +52,7 @@ namespace API
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
                 });
             });
-           services.AddApplicationServices();
-           services.AddSwaggerDocumentation();   
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +71,7 @@ namespace API
             app.UseStaticFiles();
 
             app.UseCors("CorsPolicy");
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSwaggerDocumentation();

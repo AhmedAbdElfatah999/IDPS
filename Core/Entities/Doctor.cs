@@ -9,5 +9,7 @@ namespace Core.Entities
        public virtual Specialization Specialization {get; set;}
         public int SpecializationId { get; set; }
 
+        public bool IsActivated=false;
+
     }
 }
