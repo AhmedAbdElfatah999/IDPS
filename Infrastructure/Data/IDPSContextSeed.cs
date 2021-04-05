@@ -33,7 +33,7 @@ namespace Infrastructure.Data
 
                     await context.SaveChangesAsync();
                 }
-
+               //seeding Diseases
                 if (!context.Diseases.Any())
                 {
                     var diseaseData =
@@ -48,6 +48,21 @@ namespace Infrastructure.Data
 
                     await context.SaveChangesAsync();
                 }
+             //seeding Medicines
+              if (!context.Medicines.Any())
+                {
+                    var medicineData =
+                        File.ReadAllText("../Infrastructure/Data/SeedData/Medicines.json");
+
+                    var medicine = JsonSerializer.Deserialize<List<Medicine>>(medicineData);
+
+                    foreach (var item in medicine)
+                    {
+                        context.Medicines.Add(item);
+                    }
+
+                    await context.SaveChangesAsync();
+                }  //end If 
 
             }
             catch (Exception ex)

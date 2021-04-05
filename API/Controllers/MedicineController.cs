@@ -7,10 +7,12 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace API.Controllers
 {
-    
+    [Authorize(Roles=PersonRoles.Admin)]
     public class MedicineController :BaseApiController
     {
         private readonly IGenericRepository<Medicine> _MedicineRepo;
@@ -23,7 +25,7 @@ namespace API.Controllers
 
         }
 
-        [HttpGet("Medicines")]
+        [HttpGet("AllMedicines")]
         public async Task<ActionResult<IReadOnlyList<List<Medicine>>>> GetMedicines()
         {
             

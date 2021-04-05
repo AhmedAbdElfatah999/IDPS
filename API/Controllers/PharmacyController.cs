@@ -23,7 +23,7 @@ namespace API.Controllers
 
         }
 
-        [HttpGet("Pharmacies")]
+        [HttpGet("AllPharmacies")]
         public async Task<ActionResult<IReadOnlyList<List<Pharmacy>>>> GetPharmacys()
         {
             

@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    
+     [Authorize(Roles=PersonRoles.Admin)]
     public class SpecializationController :BaseApiController
     {
         private readonly IGenericRepository<Specialization> _SpecializationRepo;
@@ -20,7 +21,7 @@ namespace API.Controllers
 
         }
 
-        [HttpGet("Specializations")]
+        [HttpGet("AllSpecializations")]
         public async Task<ActionResult<IReadOnlyList<List<Specialization>>>> GetSpecializations()
         {
             

@@ -1,10 +1,143 @@
 [
     {
    
-      "Name": "Test1"
+      "Name": "Allergists/Immunologists"
     },
     {
 
-      "Name": "Test2"
-    }
+      "Name": "Anesthesiologists"
+    },
+     {
+
+      "Name": "Cardiologists"
+    },
+  {
+
+      "Name": "Colon and Rectal Surgeons"
+    },
+      {
+
+      "Name": "Critical Care Medicine Specialists"
+    },
+    {
+
+      "Name": "Dermatologists"
+    },
+    {
+
+      "Name": "Endocrinologists"
+    },
+      {
+
+      "Name": "Emergency Medicine Specialists"
+    },
+      {
+
+      "Name": "Family Physicians"
+    },
+    {
+
+      "Name": "Gastroenterologists"
+    },
+    {
+
+      "Name": "Geriatric Medicine Specialists"
+    },
+    {
+
+      "Name": "Hematologists"
+    },
+    {
+
+      "Name": "Hospice and Palliative Medicine Specialists"
+    },
+    {
+
+      "Name": "Infectious Disease Specialists"
+    },
+    {
+
+      "Name": "Internists"
+    },
+    {
+
+      "Name": "Medical Geneticists"
+    },
+    {
+
+      "Name": "Nephrologists"
+    },
+    {
+
+      "Name": "Neurologists"
+    },
+    {
+
+      "Name": "Obstetricians and Gynecologists"
+    } ,   
+    {
+
+      "Name": "Oncologists"
+    } ,
+    {
+
+      "Name": "Ophthalmologists"
+    } ,
+    {
+
+      "Name": "Osteopaths"
+    } ,
+    {
+
+      "Name": "Otolaryngologists"
+    } ,
+    {
+
+      "Name": "Pathologists"
+    } ,
+    {
+
+      "Name": "Pediatricians"
+    } ,
+    {
+
+      "Name": "Physiatrists"
+    } ,
+    {
+
+      "Name": "Plastic Surgeons"
+    } ,
+    {
+
+      "Name": "Podiatrists"
+    } ,
+    {
+
+      "Name": "Preventive Medicine Specialists"
+    } ,
+    {
+
+      "Name": "Psychiatrists"
+    } ,
+    {
+
+      "Name": "Pulmonologists"
+    } ,
+    {
+
+      "Name": "Radiologists"
+    } ,
+    {
+
+      "Name": "Rheumatologists"
+    } ,
+    {
+
+      "Name": "General Surgeons"
+    } ,
+    {
+
+      "Name": "Urologists"
+    } 
+
   ]

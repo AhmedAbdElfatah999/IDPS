@@ -23,7 +23,7 @@ namespace API.Controllers
 
         }
 
-        [HttpGet("Hospitals")]
+        [HttpGet("ALlHospitals")]
         public async Task<ActionResult<IReadOnlyList<List<Hospital>>>> GetHospitals()
         {
             
