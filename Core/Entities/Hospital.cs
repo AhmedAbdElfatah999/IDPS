@@ -8,6 +8,7 @@ namespace Core.Entities
         public string Phone { get; set; }
         public string PictureUrl { get; set; }
         public string Details { get; set; }
+
         
     }
 }

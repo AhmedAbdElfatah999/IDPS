@@ -6,6 +6,7 @@ using API.Errors;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -40,11 +41,13 @@ namespace API.Controllers
         }
    //------------------------------------------------------
    //Create New pharmacy
+    [Authorize(Roles=PersonRoles.Admin)]   
     [HttpGet]
     public IActionResult Create()
         {
             return Ok();
         }
+        [Authorize(Roles=PersonRoles.Admin)]   
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Name,Phone,PictureUrl,NumberOfBranches")] Pharmacy pharmacy)
@@ -70,7 +73,8 @@ namespace API.Controllers
             }
 
         }
-        //To delete pharmacy    
+        //To delete pharmacy 
+         [Authorize(Roles=PersonRoles.Admin)]      
         [HttpPost]
         public IActionResult Delete(Pharmacy pharmacy)
         {
@@ -79,7 +83,8 @@ namespace API.Controllers
         }
 
         //to update pharmacy
-        [HttpGet]
+    [Authorize(Roles=PersonRoles.Admin)]   
+    [HttpGet]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult<Pharmacy>> Edit(int? id)
     {
@@ -95,6 +100,7 @@ namespace API.Controllers
             }
             return pharmacy;
     }
+       [Authorize(Roles=PersonRoles.Admin)]   
         [HttpPost]
         public IActionResult Edit([Bind("Id,Name,Phone,PictureUrl,NumberOfBranches")] Pharmacy pharmacy)
         {

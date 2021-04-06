@@ -38,6 +38,7 @@ namespace API.Controllers
         }
  //------------------------------------------------------
    //Create New Specialization
+    [Authorize(Roles=PersonRoles.Admin)]   
     [HttpGet]
     public IActionResult Create()
         {
@@ -59,7 +60,8 @@ namespace API.Controllers
             }
 
         }
-    //To delete Specialization    
+    //To delete Specialization 
+     [Authorize(Roles=PersonRoles.Admin)]      
     [HttpPost]
     public  IActionResult Delete(Specialization specialization)
     {
@@ -68,6 +70,7 @@ namespace API.Controllers
     }  
 
     //to update Specialization
+    [Authorize(Roles=PersonRoles.Admin)]   
     [HttpGet]
     [ValidateAntiForgeryToken]
     public ActionResult<Specialization> Edit(int? id)
@@ -84,6 +87,7 @@ namespace API.Controllers
             }
             return Ok(specialization);
     }
+         [Authorize(Roles=PersonRoles.Admin)]    
         [HttpPost]
         public IActionResult Edit([Bind("Id,Name")] Specialization Specialization)
         {

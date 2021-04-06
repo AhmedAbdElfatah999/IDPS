@@ -15,7 +15,8 @@ using API.Extensions;
 using Infrastructure.Identity;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
-
+using Microsoft.AspNetCore.Authentication;
+using System;
 
 namespace API
 {
@@ -27,7 +28,6 @@ namespace API
             _configuration = configuration;
       
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -52,7 +52,30 @@ namespace API
             services.AddIdentity<Person, IdentityRole>()  
                 .AddEntityFrameworkStores<AppIdentityDbContext>()  
                 .AddDefaultTokenProviders();  
-           
+           //google logins
+        services.AddAuthentication()
+        .AddGoogle(options =>
+        {
+            IConfigurationSection googleAuthNSection =
+                Configuration.GetSection("Authentication:Google");
+
+            options.ClientId = googleAuthNSection["ClientId"];
+            options.ClientSecret = googleAuthNSection["ClientSecret"];
+        });
+        //facebook logins
+        services.AddAuthentication().AddFacebook(facebookOptions =>
+        {
+            facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+            facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+        });
+        //add emailsender service
+        services.Configure<EmailSender>(Configuration);
+        //token life span,the token is valid for 2 h
+        services.Configure<DataProtectionTokenProviderOptions>(opt =>
+                  opt.TokenLifespan = TimeSpan.FromHours(2));
+
+        services.Configure<AuthMessageSenderOptions>(Configuration);
+
            services.AddSwaggerDocumentation();             
             services.AddCors(opt => 
             {

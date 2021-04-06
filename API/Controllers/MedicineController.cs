@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
-    [Authorize(Roles=PersonRoles.Admin)]
+    
     public class MedicineController :BaseApiController
     {
         private readonly IGenericRepository<Medicine> _MedicineRepo;
@@ -42,6 +42,8 @@ namespace API.Controllers
         }
          //------------------------------------------------------
    //Create New medicine
+   //Only Admin Can Access This Method
+   [Authorize(Roles=PersonRoles.Admin)]
     [HttpGet]
     public IActionResult Create()
         {
@@ -72,7 +74,8 @@ namespace API.Controllers
             }
 
         }
-        //To delete medicine    
+        //To delete medicine  
+        [Authorize(Roles=PersonRoles.Admin)]  
         [HttpPost]
         public IActionResult Delete(Medicine medicine)
         {
@@ -81,8 +84,9 @@ namespace API.Controllers
         }
 
         //to update medicine
+        [Authorize(Roles=PersonRoles.Admin)]
         [HttpGet]
-    [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
     public async Task<ActionResult<Medicine>> Edit(int? id)
     {
             if (id == null)
@@ -97,6 +101,7 @@ namespace API.Controllers
             }
             return medicine;
     }
+        [Authorize(Roles=PersonRoles.Admin)]
         [HttpPost]
         public IActionResult Edit([Bind("Id,Name,Phone,PictureUrl,NumberOfBranches")] Medicine medicine)
         {
