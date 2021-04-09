@@ -63,6 +63,21 @@ namespace Infrastructure.Data
 
                     await context.SaveChangesAsync();
                 }  //end If 
+                // sending Pharmacy
+                 if (!context.Pharmacies.Any())
+                {
+                    var pharmacyData =
+                        File.ReadAllText("../Infrastructure/Data/SeedData/Pharmacy.json");
+
+                    var Pharmacy = JsonSerializer.Deserialize<List<Pharmacy>>(pharmacyData);
+
+                    foreach (var item in Pharmacy)
+                    {
+                        context.Pharmacies.Add(item);
+                    }
+
+                    await context.SaveChangesAsync();
+                }  //end If 
 
             }
             catch (Exception ex)
