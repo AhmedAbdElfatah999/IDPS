@@ -1,0 +1,14 @@
+<div class="row ml-5 my-5" *ngIf="disease">
+    <div class="col-6">
+       <img src="{{disease.pictureUrl}}">
+    </div>
+    <div class="col-6 my-4">
+        <h1>{{disease.name}}</h1>
+        <h4>{{disease.specialization}}</h4>
+    </div>
+    <div class="row">
+         <h2>Project Description</h2>
+         <p>{{disease.description}}</p>
+    </div>
+</div>
+

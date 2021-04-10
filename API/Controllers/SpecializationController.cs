@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    
+     [Authorize(Roles=PersonRoles.Admin)]
     public class SpecializationController :BaseApiController
     {
         private readonly IGenericRepository<Specialization> _SpecializationRepo;
@@ -20,7 +21,7 @@ namespace API.Controllers
 
         }
 
-        [HttpGet("Specializations")]
+        [HttpGet("AllSpecializations")]
         public async Task<ActionResult<IReadOnlyList<List<Specialization>>>> GetSpecializations()
         {
             
@@ -37,6 +38,7 @@ namespace API.Controllers
         }
  //------------------------------------------------------
    //Create New Specialization
+    [Authorize(Roles=PersonRoles.Admin)]   
     [HttpGet]
     public IActionResult Create()
         {
@@ -58,7 +60,8 @@ namespace API.Controllers
             }
 
         }
-    //To delete Specialization    
+    //To delete Specialization 
+     [Authorize(Roles=PersonRoles.Admin)]      
     [HttpPost]
     public  IActionResult Delete(Specialization specialization)
     {
@@ -67,6 +70,7 @@ namespace API.Controllers
     }  
 
     //to update Specialization
+    [Authorize(Roles=PersonRoles.Admin)]   
     [HttpGet]
     [ValidateAntiForgeryToken]
     public ActionResult<Specialization> Edit(int? id)
@@ -83,6 +87,7 @@ namespace API.Controllers
             }
             return Ok(specialization);
     }
+         [Authorize(Roles=PersonRoles.Admin)]    
         [HttpPost]
         public IActionResult Edit([Bind("Id,Name")] Specialization Specialization)
         {

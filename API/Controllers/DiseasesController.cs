@@ -12,6 +12,7 @@ using API.Errors;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -33,7 +34,7 @@ namespace API.Controllers
         } 
 
 
-    [HttpGet("Diseases")]
+    [HttpGet("AllDiseases")]
   
     public async Task<ActionResult<Pagination<Disease>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
     {
@@ -65,6 +66,7 @@ namespace API.Controllers
     }
     //------------------------------------------------------
    //Create New Disease
+    [Authorize(Roles=PersonRoles.Admin)] 
     [HttpGet]
     public IActionResult Create()
         {
@@ -95,7 +97,8 @@ namespace API.Controllers
             }
 
         }
-        //To delete Disease    
+        //To delete Disease  
+        [Authorize(Roles=PersonRoles.Admin)]  
         [HttpPost]
         public ActionResult Delete(Disease Disease)
         {
@@ -104,7 +107,8 @@ namespace API.Controllers
         }
 
         //to update Disease
-        [HttpGet]
+     [Authorize(Roles=PersonRoles.Admin)]   
+    [HttpGet]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult<DiseaseToReturnDto>> Edit(int? id)
     {
@@ -121,6 +125,7 @@ namespace API.Controllers
             }
             return _mapper.Map<Disease, DiseaseToReturnDto>(Disease);
     }
+        [Authorize(Roles=PersonRoles.Admin)]
         [HttpPost]
         public IActionResult Edit([Bind("Id,Name,Description,PictureUrl,SpecializationId")] Disease Disease)
         {

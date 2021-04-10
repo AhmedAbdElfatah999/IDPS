@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.AspNetCore.Authorization;
+using Core.Entities;
 namespace API.Controllers
 {
+    [Authorize(Roles=PersonRoles.Admin)]
     [ApiController]
     [Route("[controller]")]
      [ApiExplorerSettings(IgnoreApi = true)]

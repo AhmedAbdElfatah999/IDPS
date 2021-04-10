@@ -33,7 +33,7 @@ namespace Infrastructure.Data
 
                     await context.SaveChangesAsync();
                 }
-
+               //seeding Diseases
                 if (!context.Diseases.Any())
                 {
                     var diseaseData =
@@ -48,6 +48,36 @@ namespace Infrastructure.Data
 
                     await context.SaveChangesAsync();
                 }
+             //seeding Medicines
+              if (!context.Medicines.Any())
+                {
+                    var medicineData =
+                        File.ReadAllText("../Infrastructure/Data/SeedData/Medicines.json");
+
+                    var medicine = JsonSerializer.Deserialize<List<Medicine>>(medicineData);
+
+                    foreach (var item in medicine)
+                    {
+                        context.Medicines.Add(item);
+                    }
+
+                    await context.SaveChangesAsync();
+                }  //end If 
+                // sending Pharmacy
+                 if (!context.Pharmacies.Any())
+                {
+                    var pharmacyData =
+                        File.ReadAllText("../Infrastructure/Data/SeedData/Pharmacy.json");
+
+                    var Pharmacy = JsonSerializer.Deserialize<List<Pharmacy>>(pharmacyData);
+
+                    foreach (var item in Pharmacy)
+                    {
+                        context.Pharmacies.Add(item);
+                    }
+
+                    await context.SaveChangesAsync();
+                }  //end If 
 
                 if(!context.Hospitals.Any())
                 {

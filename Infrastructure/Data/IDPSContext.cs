@@ -15,6 +15,8 @@ namespace Infrastructure.Data
         public DbSet<Hospital> Hospitals{get;set;}
         public DbSet<Doctor> Doctors{get;set;}
         
+        public DbSet<Medicine> Medicines { get; set; }
+        public DbSet<Pharmacy> Pharmacies { get; set; }
 
     }
 }
