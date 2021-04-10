@@ -1,0 +1,205 @@
+[
+ {
+   "Name": "CENTRAL VALLEY GENERAL HOSPITAL",
+   "Address": "1025 NORTH DOUTY STREET",
+   "Phone": "559-537-0192",
+   "PictureUrl": "hqdefault",
+   "Details": "City: MONROVIA / Zip code: 91016 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "LOS ROBLES HOSPITAL & MEDICAL CENTER - EAST CAMPUS",
+   "Address": "150 VIA MERIDA",
+   "Phone": "805-497-2727",
+   "PictureUrl": "Los-Robles-Exterior-2012",
+   "Details": "City: WESTLAKE VILAGE / Zip code: 91362 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "EAST LOS ANGELES DOCTORS HOSPITAL",
+   "Address": "4060 WHITTIER BOULEVARD",
+   "Phone": "323-268-5514",
+   "PictureUrl": "445475207c5b4d62a9657abad683301711cf6ded",
+   "Details": "City: LOS ANGELES / Zip code: 90023 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "SOUTHERN CALIFORNIA HOSPITAL AT HOLLYWOOD",
+   "Address": "6245 DE LONGPRE AVENUE",
+   "Phone": "323-462-2271",
+   "PictureUrl": "southern-california-hospitals-office",
+   "Details": "City: HOLLYWOOD / Zip code: 90028 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "KINDRED HOSPITAL BALDWIN PARK",
+   "Address": "14148 FRANCISQUITO AVENUE",
+   "Phone": "626-388-2700",
+   "PictureUrl": "download",
+   "Details": "City: BALDWIN PARK / Zip code: 91706 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "LAKEWOOD REGIONAL MEDICAL CENTER",
+   "Address": "3700 EAST SOUTH STREET",
+   "Phone": "562-531-2550",
+   "PictureUrl": "images",
+   "Details": "City: LAKEWOOD / Zip code: 90712 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "MONROVIA MEMORIAL HOSPITAL",
+   "Address": "323 SOUTH HELIOTROPE AVENUE",
+   "Phone": "331-641-2500",
+   "PictureUrl": "download (1)",
+   "Details": "City: MONROVIA / Zip code: 91016 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "MONTEREY PARK HOSPITAL",
+   "Address": "900 SOUTH ATLANTIC BOULEVARD",
+   "Phone": "132-552-3660",
+   "PictureUrl": "download (2)",
+   "Details": "City: MONTEREY PARK / Zip code: 91754 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "STAR VIEW ADOLESCENT - P H F",
+   "Address": "4025 WEST 226 STREET",
+   "Phone": "235-511-4550",
+   "PictureUrl": "Star-View-Adolescent-Center-exterior",
+   "Details": "City: TORRANCE / Zip code: 90505 / Type: PSYCHIATRIC / Status: OPEN"
+ },
+ {
+   "Name": "CORONA REGIONAL MEDICAL CENTER-MAGNOLIA",
+   "Address": "730 MAGNOLIA AVENUE",
+   "Phone": "116-784-5555",
+   "PictureUrl": "TimThumb",
+   "Details": "City: CORONA / Zip code: 92879 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "MODOC MEDICAL CENTER",
+   "Address": "228 MC DOWELL STREET",
+   "Phone": "234-771-5330",
+   "PictureUrl": "EXT-01-1-960x540",
+   "Details": "City: ALTURAS / Zip code: 96101 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "SALINAS VALLEY MEMORIAL HOSPITAL",
+   "Address": "450 EAST ROMIE LANE",
+   "Phone": "394-577-2764",
+   "PictureUrl": "images (1)",
+   "Details": "City: SALINAS / Zip code: 93901 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "CORPUS CHRISTI SPECIALTY HOSPITAL",
+   "Address": "1310 THIRD STREET",
+   "Phone": "361-888-4323",
+   "PictureUrl": "download (3)",
+   "Details": "City: CORPUS CHRISTI / Zip code: 78414 / Type: GENERAL ACUTE CARE / Status: CLOSED"
+ },
+ {
+   "Name": "HEALTHBRIDGE CHILDREN'S HOSPITAL-ORANGE",
+   "Address": "393 S. TUSTIN STREET",
+   "Phone": "522-321-3331",
+   "PictureUrl": "TimThumb (1)",
+   "Details": "City: ORANGE / Zip code: 92866 / Type: CHILDREN / Status: OPEN"
+ },
+ {
+   "Name": "HEALTHSOUTH TUSTIN REHABILITATION HOSPITAL",
+   "Address": "14851 YORBA STREET",
+   "Phone": "544-731-2511",
+   "PictureUrl": "download (4)",
+   "Details": "City: TUSTIN / Zip code: 92680 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "KINDRED HOSPITAL BREA",
+   "Address": "875 NORTH BREA BOULEVARD",
+   "Phone": "654-444-2552",
+   "PictureUrl": "download (5)",
+   "Details": "City: BREA / Zip code: 92621 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "KINDRED HOSPITAL WESTMINSTER",
+   "Address": "200 HOSPITAL CIRCLE",
+   "Phone": "664-212-1143",
+   "PictureUrl": "exterior-2",
+   "Details": "City: WESTMINSTER / Zip code: 92683 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "KAWEAH DELTA MENTAL HEALTH HOSPITAL D/P APH",
+   "Address": "1100 SO. AKERS STREET",
+   "Phone": "552-421-4323",
+   "PictureUrl": "download (6)",
+   "Details": "City: VISALIA / Zip code: 93277 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "CHARLTON MEMORIAL HOSPITAL",
+   "Address": "2449 THIRD STREET",
+   "Phone": "551-432-2221",
+   "PictureUrl": "download (7)",
+   "Details": "City: FOLKSTON / Zip code: 31537 / Type: GENERAL ACUTE CARE / Status: CLOSED"
+ },
+ {
+   "Name": "DAUTERIVE HOSPITAL",
+   "Address": "600 N LEWIS AVE.",
+   "Phone": "337-365-7311",
+   "PictureUrl": "download (8)",
+   "Details": "City: NEW IBERIA / Zip code: 70563 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "CROCKETT MEDICAL CENTER",
+   "Address": "1100 EAST LOOP 304",
+   "Phone": "936-546-3891",
+   "PictureUrl": "download (9)",
+   "Details": "City: CROCKETT / Zip code: 77954 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "CENTRAL LOUISIANA STATE HOSPITAL",
+   "Address": "242 W SHAMROCK AVE",
+   "Phone": "318-484-6200",
+   "PictureUrl": "download (10)",
+   "Details": "City: PINEVILLE / Zip code: 71360 / Type: PSYCHIATRIC / Status: OPEN"
+ },
+ {
+   "Name": "REEVES MEMORIAL MEDICAL CENTER",
+   "Address": "409 1ST ST",
+   "Phone": "318-285-9066",
+   "PictureUrl": "unnamed",
+   "Details": "City: BERNICE / Zip code: 71222 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "SERENITY SPRINGS SPECIALTY HOSPITAL",
+   "Address": "309 N MAIN ST",
+   "Phone": "318-202-3860",
+   "PictureUrl": "download (11)",
+   "Details": "City: FARMERVILLE / Zip code: 71241 / Type: PSYCHIATRIC / Status: OPEN"
+ },
+ {
+   "Name": "RIVERBRIDGE SPECIALTY HOSPITAL",
+   "Address": "209 FRONT ST.",
+   "Phone": "800-269-8034",
+   "PictureUrl": "download (12)",
+   "Details": "City: VIDALIA / Zip code: 71373 / Type: LONG TERM CARE / Status: OPEN"
+ },
+ {
+   "Name": "CITIZENS MEDICAL CENTER",
+   "Address": "7939 HIGHWAY 165",
+   "Phone": "318-649-6106",
+   "PictureUrl": "static-map-89857-a090e1c5f331cba298539e90fd6e0d5b",
+   "Details": "City: COLUMBIA / Zip code: 71418 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "BROWN MEMORIAL CONVALESCENT CENTER",
+   "Address": "545 COOK STREET",
+   "Phone": "706-245-1900",
+   "PictureUrl": "download (13)",
+   "Details": "City: ROYSTON / Zip code: 30662 / Type: LONG TERM CARE / Status: CLOSED"
+ },
+ {
+   "Name": "COLLEGE MEDICAL CENTER",
+   "Address": "2776 PACIFIC AVENUE",
+   "Phone": "711-231-1440",
+   "PictureUrl": "download (14)",
+   "Details": "City: LONG BEACH / Zip code: 90806 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ },
+ {
+   "Name": "KAISER FOUNDATION HOSPITAL - SAN LEANDRO",
+   "Address": "2500 MERCED STREET",
+   "Phone": "705-435-1821",
+   "PictureUrl": "Look_inside_SanLeandro",
+   "Details": "City: SAN LEANDRO / Zip code: 94577 / Type: GENERAL ACUTE CARE / Status: OPEN"
+ }
+]

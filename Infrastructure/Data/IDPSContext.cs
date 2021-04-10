@@ -12,6 +12,9 @@ namespace Infrastructure.Data
 
         public DbSet<Disease> Diseases {get; set;}
         public DbSet<Specialization> Specializations{get;set;}
+        public DbSet<Hospital> Hospitals{get;set;}
+        public DbSet<Doctor> Doctors{get;set;}
+        
 
     }
 }
