@@ -29,10 +29,10 @@ namespace API.Controllers
         private readonly SignInManager<Person> _signInManager;
         private readonly ITokenService _tokenService;
          private readonly RoleManager<IdentityRole> _roleManager;  
-         private readonly EmailSender _emailSender;
+
        //Initialize them in the controller
         public AdminController(IPersonGenericRepository<Admin> AdminRepo, IMapper mapper,UserManager<Person> userManager,
-         SignInManager<Person> signInManager,ITokenService tokenService,RoleManager<IdentityRole> roleManager,EmailSender emailSender)
+         SignInManager<Person> signInManager,ITokenService tokenService,RoleManager<IdentityRole> roleManager)
         {
             _AdminRepo = AdminRepo;
             _mapper = mapper;
@@ -40,7 +40,6 @@ namespace API.Controllers
             _userManager=userManager;
             _tokenService=tokenService;
             _roleManager=roleManager;
-            _emailSender=emailSender;
         }
 
         [HttpGet("Admins")]
@@ -161,6 +160,7 @@ namespace API.Controllers
             var token = await _userManager.GeneratePasswordResetTokenAsync(admin);
             var callback = Url.Action(nameof(ResetPassword), "admin", new { token, email = admin.Email }, Request.Scheme);
             string subject="Reset password token";
+             EmailSender _emailSender=null;
             await _emailSender.SendEmailAsync(admin.Email,subject,callback);
 
             return RedirectToAction(nameof(ResetPasswordConfirmation));

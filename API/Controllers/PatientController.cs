@@ -22,16 +22,15 @@ namespace API.Controllers
         private readonly SignInManager<Person> _signInManager;
         private readonly ITokenService _tokenService;
          private readonly RoleManager<IdentityRole> _roleManager;  
-         private readonly EmailSender _emailSender;
+
         private readonly IMapper _mapper;
         public PatientController(IGenericRepository<Patient> PatientRepo
         , IMapper mapper,UserManager<Person> userManager,
          SignInManager<Person> signInManager,ITokenService tokenService
-         ,RoleManager<IdentityRole> roleManager,EmailSender emailSender)
+         ,RoleManager<IdentityRole> roleManager)
         {
             _PatientRepo = PatientRepo;
             _mapper = mapper;
-            _emailSender=emailSender;
             _userManager=userManager;
             _roleManager=roleManager;
             _signInManager=signInManager;
@@ -140,6 +139,7 @@ namespace API.Controllers
             var token = await _userManager.GeneratePasswordResetTokenAsync(patient);
             var callback = Url.Action(nameof(ResetPassword), "patient", new { token, email = patient.Email }, Request.Scheme);
             string subject="Reset password token";
+           EmailSender _emailSender=null;
             await _emailSender.SendEmailAsync(patient.Email,subject,callback);
 
             return RedirectToAction(nameof(ResetPasswordConfirmation));

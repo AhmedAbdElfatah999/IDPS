@@ -22,18 +22,16 @@ namespace API.Controllers
         private readonly SignInManager<Person> _signInManager;
         private readonly ITokenService _tokenService;
          private readonly RoleManager<IdentityRole> _roleManager;  
-         private readonly EmailSender _emailSender;
-        private readonly IGenericRepository<Doctor> _DoctorRepo;
-        public readonly IGenericRepository<Specialization> _SpecializationRepo; 
+     
+        private readonly IPersonGenericRepository<Doctor> _DoctorRepo;
+        public readonly IPersonGenericRepository<Specialization> _SpecializationRepo; 
         private readonly IMapper _mapper;
-        public DoctorController(IGenericRepository<Doctor> DoctorRepo, IMapper mapper,UserManager<Person> userManager,
+        public DoctorController(IPersonGenericRepository<Doctor> DoctorRepo, IMapper mapper,UserManager<Person> userManager,
          SignInManager<Person> signInManager,ITokenService tokenService
-         ,RoleManager<IdentityRole> roleManager,EmailSender emailSender)
+         ,RoleManager<IdentityRole> roleManager)
         {
             _DoctorRepo = DoctorRepo;
             _mapper = mapper;
-            _mapper = mapper;
-            _emailSender=emailSender;
             _userManager=userManager;
             _roleManager=roleManager;
             _signInManager=signInManager;
@@ -118,6 +116,7 @@ namespace API.Controllers
             var token = await _userManager.GeneratePasswordResetTokenAsync(admin);
             var callback = Url.Action(nameof(ResetPassword), "admin", new { token, email = admin.Email }, Request.Scheme);
             string subject="Reset password token";
+             EmailSender _emailSender=null;
             await _emailSender.SendEmailAsync(admin.Email,subject,callback);
 
             return RedirectToAction(nameof(ResetPasswordConfirmation));

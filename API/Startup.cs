@@ -53,28 +53,29 @@ namespace API
                 .AddEntityFrameworkStores<AppIdentityDbContext>()  
                 .AddDefaultTokenProviders();  
            //google logins
+           /*
         services.AddAuthentication()
         .AddGoogle(options =>
         {
             IConfigurationSection googleAuthNSection =
                 Configuration.GetSection("Authentication:Google");
 
-            options.ClientId = googleAuthNSection["ClientId"];
-            options.ClientSecret = googleAuthNSection["ClientSecret"];
+            options.ClientId = googleAuthNSection["952911048785-q2bnp5uf93en60ipklm9ddcd1cbm0f4b.apps.googleusercontent.com"];
+            options.ClientSecret = googleAuthNSection["-1Hm74R1YxbpuChiFTdCF5Rm"];
         });
         //facebook logins
         services.AddAuthentication().AddFacebook(facebookOptions =>
         {
             facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
             facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-        });
+        });*/
         //add emailsender service
-        services.Configure<EmailSender>(Configuration);
+        services.Configure<EmailSender>(_configuration);
         //token life span,the token is valid for 2 h
         services.Configure<DataProtectionTokenProviderOptions>(opt =>
                   opt.TokenLifespan = TimeSpan.FromHours(2));
 
-        services.Configure<AuthMessageSenderOptions>(Configuration);
+        services.Configure<AuthMessageSenderOptions>(_configuration);
 
            services.AddSwaggerDocumentation();             
             services.AddCors(opt => 

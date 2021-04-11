@@ -92,7 +92,7 @@ namespace Infrastructure.Data
                     }
                     await context.SaveChangesAsync();
                 }
-
+                /*
                 if(!context.Doctors.Any())
                 {
                     var doctorData = 
@@ -105,7 +105,7 @@ namespace Infrastructure.Data
                         context.Doctors.Add(item);
                     }
                     await context.SaveChangesAsync();
-                }
+                }*/
 
             }
             catch (Exception ex)
