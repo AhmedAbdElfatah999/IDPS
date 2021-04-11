@@ -8,7 +8,7 @@
     "PictureUrl": "download",
     "MyClinic Address": "720 Cayuga St, Lewiston, NY 14092, United States",
     "MyClinicName": "Niagara Family Medicine Association",
-    "WorkHours": "8",
+    "WorkHours": 8,
     "SpecializationId": 1
   },
   {
@@ -19,7 +19,7 @@
     "PictureUrl": "photo",
     "MyClinic Address": "6430 Sunset Blvd, Los Angeles, CA 90028, United States",
     "MyClinicName": "Castle Connolly Medicine Association",
-    "WorkHours": "8",
+    "WorkHours": 8,
     "SpecializationId": 2
   },
   {
@@ -30,7 +30,7 @@
     "PictureUrl": "1633410",
     "MyClinic Address": "1727 Broadway, New York, NY 10019, United States",
     "MyClinicName": "SUNY Downstate Medicine Association",
-    "WorkHours": "7",
+    "WorkHours": 7,
     "SpecializationId": 3
   },
   {
@@ -41,7 +41,7 @@
     "PictureUrl": "download (1)",
     "MyClinic Address": "2141 K St NW Suite 407, Washington, DC 20037, United States",
     "MyClinicName": "Willy Med Medicine Association",
-    "WorkHours": "8",
+    "WorkHours": 8,
     "SpecializationId": 2
   },
   {
@@ -52,7 +52,7 @@
     "PictureUrl": "EmmanuelleGilles_1",
     "MyClinic Address": "2 Centerock Rd suite 500m, West Nyack, NY 10994, United States",
     "MyClinicName": "Centerock Rd Medicine Association",
-    "WorkHours": "8",
+    "WorkHours": 8,
     "SpecializationId": 3
   },
   {
@@ -63,7 +63,7 @@
     "PictureUrl": "o4oskodu5ay5a8dsfwwe",
     "MyClinic Address": "176-60 Union Tpke Suite 360, Flushing, NY 11366, United States",
     "MyClinicName": "Union Tpke Medicine Association",
-    "WorkHours": "7",
+    "WorkHours": 7,
     "SpecializationId": 1
   },
   {
@@ -74,7 +74,7 @@
     "PictureUrl": "download (2)",
     "MyClinic Address": "18 E 48th St, New York, NY, 10017",
     "MyClinicName": "Mount Sinai Morningside Medicine Association",
-    "WorkHours": "8",
+    "WorkHours": 8,
     "SpecializationId": 1
   },
   {
@@ -85,7 +85,7 @@
     "PictureUrl": "caillet-andree-1700888005",
     "MyClinic Address": "1216 Camellia Blvd, Lafayette, LA 70508, United States",
     "MyClinicName": "Shreveport LA Medicine Association",
-    "WorkHours": "7",
+    "WorkHours": 7,
     "SpecializationId": 2
   },
   {
@@ -96,7 +96,7 @@
     "PictureUrl": "344PD_w120h160_v33016",
     "MyClinic Address": "18400 Katy Fwy.Ste 440Houston",
     "MyClinicName": "Brigham and Women's Medicine Association",
-    "WorkHours": "8",
+    "WorkHours": 8,
     "SpecializationId": 3
   },
   {
@@ -107,7 +107,7 @@
     "PictureUrl": "lksd1m2zlpskzzzytbwv",
     "MyClinic Address": "51 East 25th Street, 3rd Floor New York",
     "MyClinicName": "Boulevard NY Medicine Association",
-    "WorkHours": "8",
+    "WorkHours": 8,
     "SpecializationId": 2
   }
 ]
