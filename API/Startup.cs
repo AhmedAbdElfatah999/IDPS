@@ -89,7 +89,7 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IDPSContext context,AppIdentityDbContext IdentityContext)
         {
             if (env.IsDevelopment())
             {
@@ -102,6 +102,11 @@ namespace API
 
             app.UseRouting();
             app.UseStaticFiles();
+            //Automatic create database and migrate
+            context.Database.EnsureCreated();
+            context.Database.Migrate();
+            IdentityContext.Database.EnsureCreated();
+            IdentityContext.Database.Migrate();
 
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
