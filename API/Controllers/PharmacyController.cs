@@ -3,9 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Errors;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specification;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,9 +27,9 @@ namespace API.Controllers
         }
 
         [HttpGet("AllPharmacies")]
-        public async Task<ActionResult<IReadOnlyList<List<Pharmacy>>>> GetPharmacys()
+        public async Task<ActionResult<Pagination<Pharmacy>>> GetPharmacys([FromQuery] PharmacySpecParams PharmacyParams)
         {
-            
+            var spec = new PharmaciesWithBranchesSpecification(PharmacyParams);
             var pharmacies = await _PharmacyRepo.ListAllAsync();
           
             return Ok(pharmacies);

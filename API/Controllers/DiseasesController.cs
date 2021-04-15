@@ -39,11 +39,18 @@ namespace API.Controllers
     public async Task<ActionResult<Pagination<Disease>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
     {
         var spec = new DiseasesWithSpecializationSpecification(DiseaseParams);
+        
+        var countSpec = new DiseaseWithFiltersForCountSpecification(DiseaseParams);
+        
+        var totalItems = await _DiseaseRepo.CountAsync(countSpec);
+        
         var Diseases = await _DiseaseRepo.ListAsync(spec);
+        
         var data = _mapper
         .Map<IReadOnlyList<Disease>, IReadOnlyList<DiseaseToReturnDto>>(Diseases);
-        return Ok(data);
-      
+        
+        return Ok(new Pagination<DiseaseToReturnDto>(DiseaseParams.PageIndex,
+        DiseaseParams.PageSize, totalItems, data));
     }
 
     [HttpGet("{id}")]

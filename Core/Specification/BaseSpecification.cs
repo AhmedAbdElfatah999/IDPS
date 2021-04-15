@@ -33,9 +33,6 @@ namespace Core.Specification
 
         public bool IsPagingEnabled {get;private set;}
 
-
-
-
         protected void AddOrderBy(Expression<Func<T,object>> orderByExpression)
         {
             OrderBy = orderByExpression;
