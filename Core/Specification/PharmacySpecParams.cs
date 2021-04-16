@@ -10,6 +10,7 @@ namespace Core.Specification
             get => _pageSize;
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
+        public string Name {get; set;}
         public string Sort {get; set;}
         private string _search;
         public string Search 

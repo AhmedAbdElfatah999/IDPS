@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dtos;
 using API.Errors;
 using API.Helpers;
 using AutoMapper;
@@ -27,12 +28,22 @@ namespace API.Controllers
         }
 
         [HttpGet("AllPharmacies")]
-        public async Task<ActionResult<Pagination<Pharmacy>>> GetPharmacys([FromQuery] PharmacySpecParams PharmacyParams)
+        public async Task<ActionResult<Pagination<PharmactDto>>> GetPharmacys(
+            [FromQuery] PharmacySpecParams PharmacyParams)
         {
             var spec = new PharmaciesWithBranchesSpecification(PharmacyParams);
-            var pharmacies = await _PharmacyRepo.ListAllAsync();
-          
-            return Ok(pharmacies);
+
+            var countSpec = new PharmacyWithFiltersForCountSpecification(PharmacyParams);
+            
+            var totalItems = await _PharmacyRepo.CountAsync(countSpec);
+            
+            var pharmacies = await _PharmacyRepo.ListAsync(spec);
+
+            var data = _mapper
+            .Map<IReadOnlyList<Pharmacy>, IReadOnlyList<PharmactDto>>(pharmacies);
+            
+            return Ok(new Pagination<PharmactDto>(PharmacyParams.PageIndex,
+            PharmacyParams.PageSize, totalItems, data));
 
         }
 
