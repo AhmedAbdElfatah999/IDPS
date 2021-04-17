@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dtos;
 using API.Errors;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Specification;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,12 +28,22 @@ namespace API.Controllers
         }
 
         [HttpGet("ALlHospitals")]
-        public async Task<ActionResult<IReadOnlyList<List<Hospital>>>> GetHospitals()
+        public async Task<ActionResult<Pagination<HospitalDto>>> GetHospitals(
+            [FromQuery] HospitalSpecParams hospitalParams)
         {
+            var spec = new HospitalWithSpecializationSpecification(hospitalParams);
             
-            var hospitals = await _HospitalRepo.ListAllAsync();
+            var countSpec = new HospitalWithFilterCountSpecification(hospitalParams);
+            
+            var totalItems = await _HospitalRepo.CountAsync(countSpec);
+            
+            var hospitals = await _HospitalRepo.ListAsync(spec);
+
+            var data = _mapper
+            .Map<IReadOnlyList<Hospital>, IReadOnlyList<HospitalDto>>(hospitals);
           
-            return Ok(hospitals);
+            return Ok(new Pagination<HospitalDto>(hospitalParams.PageIndex,
+            hospitalParams.PageSize, totalItems, data));
 
         }
 

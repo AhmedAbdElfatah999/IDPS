@@ -11,6 +11,8 @@ using Infrastructure.Services;
 using API.Errors;
 using System;
 using System.Linq;
+using API.Helpers;
+using Core.Specification;
 
 namespace API.Controllers
 {
@@ -40,13 +42,22 @@ namespace API.Controllers
         }
 
         [HttpGet("Doctors")]
-        public async Task<ActionResult<IReadOnlyList<List<Doctor>>>> GetDoctors()
+        public async Task<ActionResult<Pagination<DoctorDto>>> GetDoctors(
+            [FromQuery] DoctorSpecParams doctorParams)
         {
-            
-            var doctors = await _DoctorRepo.ListAllAsync();
-          
-            return Ok(doctors);
+            var spec = new DoctorsWithSpecializationSpecification(doctorParams);
 
+            var countSpec = new DoctorWithFiltersForCountSpecification(doctorParams);
+            
+            var totalItems = await _DoctorRepo.CountAsync(countSpec);
+            
+            var doctors = await _DoctorRepo.ListAsync(spec);
+
+            var data = _mapper
+            .Map<IReadOnlyList<Doctor>, IReadOnlyList<DoctorDto>>(doctors);
+
+            return Ok(new Pagination<DoctorDto>(doctorParams.PageIndex,
+            doctorParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]
