@@ -1,1 +1,46 @@
-<p>pharmacies works!</p>
+<div class="container my-4">
+    <div class="row">
+
+        <section class="col-2">
+            <h5 class="text-info ml-3 my-3">Sort</h5>
+             <select class="form-select" (change)="onSortSelected($event.target.value)" aria-label="Default select example">
+                <option *ngFor="let sort of sortOptions"
+                [value]="sort.value"
+                >
+                 {{sort.name}}
+                </option>
+              </select>
+        </section>
+
+       <section class="col-10">
+
+        <app-paging-header
+        [totalCount] = "totalCount"
+        [pageSize] = "this.pharmaciesParams.pageSize"
+        [pageNumber] = "this.pharmaciesParams.pageNumber"
+        >
+        </app-paging-header>
+        <ul class="list-unstyled">
+            <li *ngFor="let pharmacies of pharmacies">
+               <app-pharmacies-child [pharmacies]="pharmacies"></app-pharmacies-child>
+            </li>
+        </ul>
+
+        <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
+           <app-pager
+           [pageSize] = "this.pharmaciesParams.pageSize"
+           [totalCount] = "totalCount"
+           (pageChaned) = "onPageChange($event)"
+           >
+
+           </app-pager>
+        </div>
+
+       </section>
+    </div>
+
+
+
+</div>
+
+

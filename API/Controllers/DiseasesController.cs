@@ -36,7 +36,7 @@ namespace API.Controllers
 
     [HttpGet("AllDiseases")]
   
-    public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
+public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
     {
         var spec = new DiseasesWithSpecializationSpecification(DiseaseParams);
         

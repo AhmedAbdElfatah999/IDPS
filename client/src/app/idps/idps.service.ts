@@ -15,10 +15,12 @@ export class IDPSService {
  // tslint:disable-next-line: typedef
  getDiseases(idpsParams: IdpsParams){
    let params = new HttpParams();
-   if (idpsParams.specId) {
+   if (idpsParams.specId !== 0) {
      params = params.append('specId', idpsParams.specId.toString());
    }
-   return this.http.get<IPagination>(this.baseUrl + 'diseases/Diseases?pageSize=50', {observe: 'response', params})
+   params = params.append('pageIndex', idpsParams.pageNumber.toString());
+   params = params.append('pageIndex', idpsParams.pageSize.toString());
+   return this.http.get<IPagination>(this.baseUrl + 'diseases/AllDiseases?pageSize=8', {observe: 'response', params})
    .pipe(
      map(
        response => {

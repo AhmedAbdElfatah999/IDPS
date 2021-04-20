@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
-
-
+import { PharmaciesModule } from '../pharmacies/pharmacies.module';
 
 
 @NgModule({
   declarations: [NavBarComponent, HeaderComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    PharmaciesModule
   ],
   exports: [NavBarComponent, HeaderComponent]
 })
