@@ -56,12 +56,12 @@ namespace API
                 .AddEntityFrameworkStores<AppIdentityDbContext>()  
                 .AddDefaultTokenProviders();  
            //google logins
-            /*
+        
         services.AddAuthentication()
         .AddGoogle(options =>
         {
-            options.ClientId =_configuration["Authentication:Google : ClientId"];
-            options.ClientSecret = _configuration["Authentication:Google : ClientSecret"];
+            options.ClientId =_configuration["Authentication:Google:ClientId"];
+            options.ClientSecret = _configuration["Authentication:Google:ClientSecret"];
              options.SignInScheme = "MyCookieMiddlewareInstance";
         });
         //facebook logins
@@ -71,7 +71,7 @@ namespace API
             facebookOptions.AppId = _configuration["Authentication:Facebook:AppId"];
             facebookOptions.AppSecret =_configuration["Authentication:Facebook:AppSecret"];
              facebookOptions.SignInScheme = "MyCookieMiddlewareInstance";
-        });*/
+        });
         //add emailsender service
         services.Configure<EmailSender>(_configuration);
         //token life span,the token is valid for 2 h

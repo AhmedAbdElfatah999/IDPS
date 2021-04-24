@@ -39,11 +39,10 @@ namespace API.Controllers
             
             var hospitals = await _HospitalRepo.ListAsync(spec);
 
-            var data = _mapper
-            .Map<IReadOnlyList<Hospital>, IReadOnlyList<HospitalDto>>(hospitals);
+
           
-            return Ok(new Pagination<HospitalDto>(hospitalParams.PageIndex,
-            hospitalParams.PageSize, totalItems, data));
+            return Ok(new Pagination<Hospital>(hospitalParams.PageIndex,
+            hospitalParams.PageSize, totalItems,hospitals));
 
         }
 

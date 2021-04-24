@@ -16,6 +16,7 @@ using Infrastructure.Services;
 
 namespace API.Controllers
 {
+   
     [ApiController]
     public class AdminController : BaseApiController
     {
@@ -41,7 +42,7 @@ namespace API.Controllers
             _tokenService=tokenService;
             _roleManager=roleManager;
         }
-
+         [Authorize(Roles=PersonRoles.Admin)]
         [HttpGet("Admins")]
         public async Task<ActionResult<IReadOnlyList<List<Admin>>>> GetAdmins()
         {
@@ -51,7 +52,7 @@ namespace API.Controllers
             return Ok(admin);
 
         }
-
+        [Authorize(Roles=PersonRoles.Admin)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Admin>> GetAdmin(int id)
         {
@@ -60,7 +61,7 @@ namespace API.Controllers
 
       //------------------------------The Identity Methods------------------------------
       
-       [Authorize]
+        [Authorize(Roles=PersonRoles.Admin)]
         [HttpGet]
         public async Task<ActionResult<AdminDto>> GetCurrentUser()
         {
@@ -75,6 +76,7 @@ namespace API.Controllers
             };
         }
          //check for Email If it is already exists
+          [Authorize(Roles=PersonRoles.Admin)]
         [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
         {
@@ -146,7 +148,7 @@ namespace API.Controllers
                 LastLogin=LastLoginDate
             };
         }
-
+          [Authorize(Roles=PersonRoles.Admin)]
         //Forget Password Method
         [HttpPost]
         [ValidateAntiForgeryToken]
