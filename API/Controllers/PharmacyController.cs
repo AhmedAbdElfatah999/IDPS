@@ -39,11 +39,10 @@ namespace API.Controllers
             
             var pharmacies = await _PharmacyRepo.ListAsync(spec);
 
-            var data = _mapper
-            .Map<IReadOnlyList<Pharmacy>, IReadOnlyList<PharmactDto>>(pharmacies);
+            //var data = _mapper.Map<IReadOnlyList<Pharmacy>, IReadOnlyList<PharmactDto>>(pharmacies);
             
-            return Ok(new Pagination<PharmactDto>(PharmacyParams.PageIndex,
-            PharmacyParams.PageSize, totalItems, data));
+            return Ok(new Pagination<Pharmacy>(PharmacyParams.PageIndex,
+            PharmacyParams.PageSize, totalItems, pharmacies));
 
         }
 

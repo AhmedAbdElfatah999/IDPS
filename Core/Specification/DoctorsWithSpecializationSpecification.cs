@@ -8,7 +8,6 @@ namespace Core.Specification
             : base(x => x.SpecializationId == id)
         {
             AddInclude(x => x.Specialization);
-
         }  
 
     public DoctorsWithSpecializationSpecification(DoctorSpecParams DoctorParams)
@@ -26,7 +25,6 @@ namespace Core.Specification
             {
                 AddOrderBy(p => p.Name);
             }
-
         }      
     }
 }

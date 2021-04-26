@@ -30,7 +30,6 @@ namespace API.Controllers
             _mapper = mapper;
             _SpecializationRepo = SpecializationRepo;
             _DiseaseRepo = DiseaseRepo;
-
         } 
 
 

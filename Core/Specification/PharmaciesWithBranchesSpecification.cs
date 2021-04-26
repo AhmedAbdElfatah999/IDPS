@@ -9,7 +9,6 @@ namespace Core.Specification
                 (string.IsNullOrEmpty(pharmacyParams.Search) || x.Name.ToLower().Contains(pharmacyParams.Search))
             )
         {
-            AddInclude(x => x.NumberOfBranches);
             AddOrderBy(x => x.Name);
             ApplyPaging(pharmacyParams.PageSize * (pharmacyParams.PageIndex -1),
              pharmacyParams.PageSize);
