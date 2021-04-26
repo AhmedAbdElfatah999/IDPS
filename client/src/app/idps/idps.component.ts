@@ -11,7 +11,7 @@ import { IdpsParams } from '../shared/models/idpsParams';
 })
 export class IDPSComponent implements OnInit {
   @ViewChild('search', {static: true}) searchTerm: ElementRef;
-  disease;
+  disease: IDiseases[];
   specialization: ISpecialization[];
   idpsParams = new IdpsParams();
   totalCount: number;
@@ -26,7 +26,7 @@ export class IDPSComponent implements OnInit {
     // tslint:disable-next-line: deprecation
     this.idpsService.getDiseases(this.idpsParams).subscribe(
       response => {
-        this.disease = response;
+        this.disease = response.data;
         this.idpsParams.pageNumber = response.pageIndex;
         this.idpsParams.pageSize = response.pageSize;
         this.totalCount = response.count;
@@ -59,6 +59,12 @@ export class IDPSComponent implements OnInit {
   onSearch()
   {
     this.idpsParams.search = this.searchTerm.nativeElement.value;
+    this.getDiseases();
+  }
+
+  // tslint:disable-next-line: typedef
+  onPageChanged(event: any){
+    this.idpsParams.pageNumber = event;
     this.getDiseases();
   }
  }

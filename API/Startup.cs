@@ -16,6 +16,9 @@ using Infrastructure.Identity;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.Facebook;
+
 using System;
 
 namespace API
@@ -28,7 +31,7 @@ namespace API
             _configuration = configuration;
       
         }
-        public IConfiguration Configuration { get; }
+       // public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -53,22 +56,22 @@ namespace API
                 .AddEntityFrameworkStores<AppIdentityDbContext>()  
                 .AddDefaultTokenProviders();  
            //google logins
-           /*
+        
         services.AddAuthentication()
         .AddGoogle(options =>
         {
-            IConfigurationSection googleAuthNSection =
-                Configuration.GetSection("Authentication:Google");
-
-            options.ClientId = googleAuthNSection["952911048785-q2bnp5uf93en60ipklm9ddcd1cbm0f4b.apps.googleusercontent.com"];
-            options.ClientSecret = googleAuthNSection["-1Hm74R1YxbpuChiFTdCF5Rm"];
+            options.ClientId =_configuration["Authentication:Google:ClientId"];
+            options.ClientSecret = _configuration["Authentication:Google:ClientSecret"];
+             options.SignInScheme = "MyCookieMiddlewareInstance";
         });
         //facebook logins
+     
         services.AddAuthentication().AddFacebook(facebookOptions =>
         {
-            facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-            facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-        });*/
+            facebookOptions.AppId = _configuration["Authentication:Facebook:AppId"];
+            facebookOptions.AppSecret =_configuration["Authentication:Facebook:AppSecret"];
+             facebookOptions.SignInScheme = "MyCookieMiddlewareInstance";
+        });
         //add emailsender service
         services.Configure<EmailSender>(_configuration);
         //token life span,the token is valid for 2 h
@@ -99,7 +102,7 @@ namespace API
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseHttpsRedirection();
-
+            
             app.UseRouting();
             app.UseStaticFiles();
             //Automatic create database and migrate
@@ -107,6 +110,8 @@ namespace API
             context.Database.Migrate();
             IdentityContext.Database.EnsureCreated();
             IdentityContext.Database.Migrate();
+
+
 
             app.UseCors("CorsPolicy");
             app.UseAuthentication();

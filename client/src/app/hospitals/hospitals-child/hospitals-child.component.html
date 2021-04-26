@@ -1,0 +1,41 @@
+<div class="row my-4">
+    <div class = "d-flex justify-content-center">
+        <div class="card col-10">
+
+            <div class="row my-5 ms-4">
+                <div class="col-3">
+                    <img src="{{hospitals.pictureUrl}}" class="card-img-top">
+                </div>
+
+               <div class="col-4">
+                <h3 class="card-title">{{hospitals.name}}</h3>
+                <p>{{hospitals.details}}</p>
+               </div>
+
+
+                <div class="col-5">
+                  <div class="row my-3">
+                      <div class="col-1">
+                          <img src="./assets/call-center.png" width="50" height="50">
+                      </div>
+                      <div class="col-9 ms-5">
+                          {{hospitals.phone}}
+                      </div>
+                  </div>
+
+                  <div class="row my-3">
+                    <div class="col-1">
+                        <img src="./assets/map.png" width="50" height="50">
+                    </div>
+                    <div class="col-9 ms-5">
+                       {{hospitals.address}} 
+                    </div>
+                </div>
+
+                </div>
+                </div>
+                
+            </div>
+           
+          </div>
+</div>
