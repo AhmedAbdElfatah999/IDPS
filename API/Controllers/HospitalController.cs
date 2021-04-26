@@ -89,9 +89,13 @@ namespace API.Controllers
 
         [Authorize(Roles=PersonRoles.Admin)]   
         [HttpPost]  
-        public IActionResult Delete(Hospital hospital)
+        public IActionResult Delete(List<Hospital> hospitals)
         {
-            _HospitalRepo.Delete(hospital);
+            foreach (var item in hospitals)
+            {
+                _HospitalRepo.Delete(item);
+            }
+            
             return Ok();
         }
 

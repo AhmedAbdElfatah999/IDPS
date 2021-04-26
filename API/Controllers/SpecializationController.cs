@@ -63,9 +63,13 @@ namespace API.Controllers
     //To delete Specialization 
      [Authorize(Roles=PersonRoles.Admin)]      
     [HttpPost]
-    public  IActionResult Delete(Specialization specialization)
+    public  IActionResult Delete(List<Specialization> specializations)
     {
-       _SpecializationRepo.Delete(specialization);
+        foreach (var item in specializations)
+        {
+             _SpecializationRepo.Delete(item);
+        }
+      
        return Ok();
     }  
 

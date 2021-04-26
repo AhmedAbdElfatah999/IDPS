@@ -71,9 +71,13 @@ namespace API.Controllers
 
         [Authorize(Roles=PersonRoles.Admin)]  
         [HttpPost]
-        public ActionResult Delete(Doctor doctor)
+        public ActionResult Delete(List<Doctor> doctors)
         {
-            _DoctorRepo.Delete(doctor);
+            foreach (var item in doctors)
+            {
+                _DoctorRepo.Delete(item);
+            }
+            
             return Ok();
         }
           //check for Email If it is already exists

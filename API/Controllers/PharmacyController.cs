@@ -88,9 +88,13 @@ namespace API.Controllers
         //To delete pharmacy 
          [Authorize(Roles=PersonRoles.Admin)]      
         [HttpPost]
-        public IActionResult Delete(Pharmacy pharmacy)
+        public IActionResult Delete(List<Pharmacy> pharmacies)
         {
-            _PharmacyRepo.Delete(pharmacy);
+            foreach (var item in pharmacies)
+            {
+                 _PharmacyRepo.Delete(item);
+            }
+           
             return Ok();
         }
 

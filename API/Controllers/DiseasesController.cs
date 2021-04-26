@@ -108,9 +108,13 @@ public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([Fro
         //To delete Disease  
         [Authorize(Roles=PersonRoles.Admin)]  
         [HttpPost]
-        public ActionResult Delete(Disease Disease)
+        public ActionResult Delete(List<Disease> Diseases)
         {
-            _DiseaseRepo.Delete(Disease);
+            foreach (var item in Diseases)
+            {
+                 _DiseaseRepo.Delete(item);
+            }
+           
             return Ok();
         }
 
