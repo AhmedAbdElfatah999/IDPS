@@ -11,7 +11,6 @@ namespace Core.Specification
                 (!DoctorParams.specId.HasValue || x.SpecializationId == DoctorParams.specId)
             )
         {
-            
         }
     }
 }

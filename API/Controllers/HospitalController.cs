@@ -39,8 +39,6 @@ namespace API.Controllers
             
             var hospitals = await _HospitalRepo.ListAsync(spec);
 
-
-          
             return Ok(new Pagination<Hospital>(hospitalParams.PageIndex,
             hospitalParams.PageSize, totalItems,hospitals));
 

@@ -42,8 +42,7 @@ namespace API.Controllers
         }
 
         [HttpGet("Doctors")]
-        public async Task<ActionResult<Pagination<DoctorDto>>> GetDoctors(
-            [FromQuery] DoctorSpecParams doctorParams)
+        public async Task<ActionResult<Pagination<DoctorDto>>> GetDoctors([FromQuery] DoctorSpecParams doctorParams)
         {
             var spec = new DoctorsWithSpecializationSpecification(doctorParams);
 
@@ -53,11 +52,10 @@ namespace API.Controllers
             
             var doctors = await _DoctorRepo.ListAsync(spec);
 
-            var data = _mapper
-            .Map<IReadOnlyList<Doctor>, IReadOnlyList<DoctorDto>>(doctors);
+            //var data = _mapper.Map<IReadOnlyList<Doctor>, IReadOnlyList<DoctorDto>>(doctors);
 
-            return Ok(new Pagination<DoctorDto>(doctorParams.PageIndex,
-            doctorParams.PageSize, totalItems, data));
+            return Ok(new Pagination<Doctor>(doctorParams.PageIndex,
+            doctorParams.PageSize, totalItems, doctors));
         }
 
         [HttpGet("{id}")]
@@ -112,6 +110,38 @@ namespace API.Controllers
                 LastLogin=LastLoginDate
 
             };
+        }
+
+        [HttpPost("submit")]
+        public async Task<ActionResult<DoctorDto>> RegistrationRequest(Doctor doctor)
+        {
+            //Check the Email 
+            if (CheckEmailExistsAsync(doctor.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse{Errors = new []{"Email address is in use"}});
+            }
+            
+            //Check the new doctor data
+            var result = await _userManager.CreateAsync(doctor);
+            if (!result.Succeeded)  
+                return NotFound("Doctor creation failed! Please check user details and try again.");
+             
+                  
+            //Add Role
+            if (await _roleManager.RoleExistsAsync(PersonRoles.Doctor))  
+            {  
+                await _userManager.AddToRoleAsync(doctor, PersonRoles.Doctor);  
+            } 
+                
+            //Last Login Functionality
+            TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)doctor.LastLogin);
+            doctor.LastLogin = DateTime.Now;
+            var lastLoginResult = await _userManager.UpdateAsync(doctor);
+            if (!lastLoginResult.Succeeded)
+            {
+                throw new InvalidOperationException("Unexpected error occurred setting the last login date");
+            }
+            return Ok();
         }
 
          //Forget Password Method
