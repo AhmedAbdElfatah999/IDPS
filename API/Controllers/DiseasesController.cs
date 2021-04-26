@@ -74,9 +74,10 @@ public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([Fro
    //Create New Disease
     [Authorize(Roles=PersonRoles.Admin)] 
     [HttpGet]
-    public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return Ok();
+
+            return Ok(await _SpecializationRepo.ListAllAsync());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,10 +87,11 @@ public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([Fro
             if ((file != null && file.Length > 0))
             {
                 var fileName = Path.GetFileName(file.FileName);
+                var extension= Path.GetExtension(file.FileName);
                 var path = Path.Combine("wwwroot/images/Diseases", fileName);
                 var fileStream = new FileStream(path, FileMode.Create);
                 file.CopyTo(fileStream);
-                Disease.PictureUrl = fileName;
+                Disease.PictureUrl = fileName+extension;
               
             }
             if (ModelState.IsValid)
