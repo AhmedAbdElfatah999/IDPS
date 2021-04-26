@@ -35,7 +35,7 @@ namespace API.Controllers
 
     [HttpGet("AllDiseases")]
   
-public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
+    public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([FromQuery] DiseaseSpecParams DiseaseParams)
     {
         var spec = new DiseasesWithSpecializationSpecification(DiseaseParams);
         
@@ -70,10 +70,10 @@ public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([Fro
     {
         return Ok(await _SpecializationRepo.ListAllAsync());
     }
-    //------------------------------------------------------
-   //Create New Disease
-    [Authorize(Roles=PersonRoles.Admin)] 
-    [HttpGet]
+        //------------------------------------------------------
+        //Create New Disease
+        [Authorize(Roles=PersonRoles.Admin)] 
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
 
@@ -119,7 +119,7 @@ public async Task<ActionResult<Pagination<DiseaseToReturnDto>>> GetDiseases([Fro
         }
 
         //to update Disease
-     [Authorize(Roles=PersonRoles.Admin)]   
+    [Authorize(Roles=PersonRoles.Admin)]   
     [HttpGet]
     [ValidateAntiForgeryToken]
     public async Task<ActionResult<DiseaseToReturnDto>> Edit(int? id)

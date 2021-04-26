@@ -41,14 +41,15 @@ namespace API.Controllers
            return await _MedicineRepo.GetByIdAsync(id);
         }
          //------------------------------------------------------
-   //Create New medicine
-   //Only Admin Can Access This Method
-   [Authorize(Roles=PersonRoles.Admin)]
-    [HttpGet]
-    public IActionResult Create()
+        //Create New medicine
+        //Only Admin Can Access This Method
+        [Authorize(Roles=PersonRoles.Admin)]
+        [HttpGet]
+        public IActionResult Create()
         {
             return Ok();
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Name,Manufacturer,Price,HowToTake,PictureUrl,Description")] Medicine medicine)

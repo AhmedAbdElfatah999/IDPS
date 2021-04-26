@@ -67,6 +67,14 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<Specialization>>> GetDoctorSpecialization()
         {
             return Ok(await _SpecializationRepo.ListAllAsync());
+        }
+        
+        [Authorize(Roles=PersonRoles.Admin)] 
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+
+            return Ok(await _SpecializationRepo.ListAllAsync());
         } 
 
         [Authorize(Roles=PersonRoles.Admin)]  
@@ -116,7 +124,7 @@ namespace API.Controllers
             };
         }
 
-        [HttpPost("submit")]
+        [HttpPost("request")]
         public async Task<ActionResult<DoctorDto>> RegistrationRequest(Doctor doctor)
         {
             //Check the Email 

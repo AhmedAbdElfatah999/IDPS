@@ -51,14 +51,15 @@ namespace API.Controllers
         {
            return await _PharmacyRepo.GetByIdAsync(id);
         }
-   //------------------------------------------------------
-   //Create New pharmacy
-    [Authorize(Roles=PersonRoles.Admin)]   
-    [HttpGet]
-    public IActionResult Create()
+        //------------------------------------------------------
+        //Create New pharmacy
+        [Authorize(Roles=PersonRoles.Admin)]   
+        [HttpGet]
+        public IActionResult Create()
         {
             return Ok();
         }
+        
         [Authorize(Roles=PersonRoles.Admin)]   
         [HttpPost]
         [ValidateAntiForgeryToken]
