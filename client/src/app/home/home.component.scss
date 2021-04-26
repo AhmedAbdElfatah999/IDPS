@@ -8,6 +8,19 @@
 
 h1{
   color:#1d4e89;
+  text-align: center;
+}
+
+h3{
+  margin-left: 150px;
+}
+.row::after{
+  position: absolute;
+  overflow: hidden;
+  width: 70%;
+  height: 3px;
+  content: '\a0';
+  background-color: #227c9d;
 }
 hr{
   color:#6096ba;
@@ -16,5 +29,46 @@ hr{
   color:#227c9d;
 }
 .p{
-  color:#598392;
+  color: #1d4e89;
+  margin-left: 150px;
+}
+
+.srv{
+  width: 100px;
+  height: 100px;
+  margin-top: 30px;
+  margin-left: 180px;
+}
+a:hover{
+  text-decoration: none;
+}
+
+.btn{
+  margin-top: 2px;
+  margin-left: 150px;
+  text-transform: uppercase;
+}
+.cnt{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cnt img{
+  width: 100%;
+  height: 100%;
+}
+.join{
+  position:absolute;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%,-50%);
+  color: white;
+  background-color: #1d3557;
+  font-size: 70px;
+  text-transform: uppercase;
+  opacity: 0.4;
+  width: 700px;
+  height: 70%;
+  padding: 16px 30px;
+  border-radius: 10px;
 }
