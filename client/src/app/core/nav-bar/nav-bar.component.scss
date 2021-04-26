@@ -1,5 +1,32 @@
-a{
+#nav{
+  background-color: #1d3557;
+}
+
+.logo{
+  width: 150px;
+  height: 150px;
+}
+.navbar li a {
+  font-size: medium;
+  color:#f4f3ee;
+  text-transform: uppercase;
   &.active{
-      color: azure;
-  }
+    color:#1d3557;
+    background-color: #f4f3ee;
+}
+}
+.navbar li :hover{
+    background-color: #f4f3ee;
+    color:#1d3557;
+    
+}
+
+.dropdown-menu {
+  background-color: #1d3557;
+  color:#f4f3ee
+}
+
+.dropdown-item :hover{
+  background-color: #f4f3ee;
+  color:#1d3557;
 }

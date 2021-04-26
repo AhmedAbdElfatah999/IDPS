@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IPagination } from '../shared/models/pagination';
+import { IPagination, PhPagination } from '../shared/models/pagination';
 import { IdpsParams } from '../shared/models/idpsParams';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,13 @@ export class PharmaciesService {
      params = params.append('sort', pharmaciesParams.sort);
      params = params.append('pageIndex', pharmaciesParams.pageNumber.toString());
      params = params.append('pageSize', pharmaciesParams.pageNumber.toString());
-     return this.http.get<IPagination>(this.baseUrl + 'pharmacy/AllPharmacies');
+     return this.http.get<PhPagination>(this.baseUrl + 'pharmacy/AllPharmacies?pageSize=5', {observe: 'response', params})
+     .pipe(
+       map(
+         response => {
+           return response.body;
+         }
+       )
+     )
     }
 }

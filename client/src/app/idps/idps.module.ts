@@ -13,6 +13,7 @@ import { IdpsRoutingModule } from './idps-routing.module';
     CommonModule,
     SharedModule,
     IdpsRoutingModule
-  ]
+  ],
+  exports: [IDPSComponent]
 })
 export class IDPSModule { }

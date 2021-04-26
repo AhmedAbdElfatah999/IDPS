@@ -16,7 +16,7 @@ using Infrastructure.Services;
 
 namespace API.Controllers
 {
-   
+
     [ApiController]
     public class AdminController : BaseApiController
     {

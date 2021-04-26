@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PharmaciesService } from './pharmacies.service';
 import { IdpsParams } from '../shared/models/idpsParams';
+import { IPharmacies } from '../shared/models/pharmacies';
 
 @Component({
   selector: 'app-pharmacies',
@@ -9,15 +10,15 @@ import { IdpsParams } from '../shared/models/idpsParams';
 })
 export class PharmaciesComponent implements OnInit {
   @ViewChild('search', {static: true}) searchTerm: ElementRef;
-  pharmacies;
+  pharmacies: IPharmacies[];
   pharmaciesParams = new IdpsParams();
   totalCount: number;
-  sortOptions = [
+  /*sortOptions = [
     {name: 'Alphabetical', value: 'name'},
     {name: 'Number Of Branches: high to low', value: 'branchAsc'},
     {name: 'Number Of Branches: low to high', value: 'branchDesc'}
   ];
-
+*/
   constructor(private pharmaciesServices: PharmaciesService) { }
 
   // tslint:disable-next-line: typedef
@@ -30,7 +31,7 @@ export class PharmaciesComponent implements OnInit {
     // tslint:disable-next-line: deprecation
     this.pharmaciesServices.getPharmacies(this.pharmaciesParams).subscribe(
       response => {
-        this.pharmacies = response;
+        this.pharmacies = response.data;
         this.pharmaciesParams.pageNumber = response.pageIndex;
         this.pharmaciesParams.pageSize = response.pageSize;
         this.totalCount = response.count;
@@ -42,11 +43,11 @@ export class PharmaciesComponent implements OnInit {
 
   }
 
-  // tslint:disable-next-line: typedef
+  /*tslint:disable-next-line: typedef
   onSortSelected(sort: string){
     this.pharmaciesParams.sort = sort;
     this.getPharmacies();
-  }
+  }*/
   // tslint:disable-next-line: typedef
   onPageChange(event: any){
     this.pharmaciesParams.pageNumber = event;

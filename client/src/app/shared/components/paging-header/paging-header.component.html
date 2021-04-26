@@ -1,15 +1,15 @@
-<header class="my-3">
-    <span *ngIf="totalCount && totalCount > 0">
-        Showing 
-    <strong>
-        {{(pageNumber-1) * pageSize+1}} - 
-        {{pageNumber * pageSize
-            > this.totalCount 
-            ? this.totalCount 
-            : pageNumber * pageSize
-        }}
-    </strong> of <strong> {{this.totalCount}} </strong> Results </span>
-    <span *ngIf="totalCount === 0">
-        There are <strong>0</strong> results for this
-    </span>
-</header>
+    <header>
+        <span class="txt" *ngIf="totalCount && totalCount > 0">
+            Showing 
+        <strong class="txt2">
+            {{(pageNumber-1) * pageSize+1}} - 
+            {{pageNumber * pageSize
+                > this.totalCount 
+                ? this.totalCount 
+                : pageNumber * pageSize
+            }}
+        </strong> of <strong class="txt2"> {{this.totalCount}} </strong> Results </span>
+        <span class="txt2" *ngIf="totalCount === 0">
+            There are <strong>0</strong> results for this
+        </span>
+    </header>

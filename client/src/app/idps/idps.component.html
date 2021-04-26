@@ -2,15 +2,15 @@
 <div class="container my-4">
     <div class="row">
         <section class="col-3">
-            <h5 class="text-info ml-3 my-3">Sort</h5>
+          <!--  <h5 class="text-info ml-3 my-3">Sort</h5>
              <select class="form-select" aria-label="Default select example">
                 <option selected>Alphabetical: A to Z</option>
                 <option>Alphabetical: Z to A</option>
-              </select>
+              </select>-->
 
-            <h5 class="text-info ml-3 my-3">Specializations</h5>
+            <h5 class="ml-3 my-3" style="color: #577590;">Specializations</h5>
             <ul class="list-group">
-                <li class="list-group-item"
+                <li class="list-group-item" style="color:#577590;"
                  *ngFor="let index of specialization" aria-current="true"
                  [class.active] = "index.id === this.idpsParams.specId"
                  [value]="index.id"
@@ -32,7 +32,7 @@
                </app-paging-header>
 
             <div class="row my-3">
-                <div *ngFor="let diseases of disease" class="col-3 my-4">
+                <div *ngFor="let diseases of disease" class="col-lg-3 col-md-6 col-sm-12 my-4">
                     <app-diseases-chile [disease]="diseases"></app-diseases-chile>
                 </div>
             </div>
