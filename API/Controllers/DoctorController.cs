@@ -123,7 +123,11 @@ namespace API.Controllers
 
             };
         }
-
+        //The Logout Method
+        public ActionResult Logout(){
+              HttpContext.Session.Clear();
+            return Ok();
+           }  
         [HttpPost("request")]
         public async Task<ActionResult<DoctorDto>> RegistrationRequest(Doctor doctor)
         {
