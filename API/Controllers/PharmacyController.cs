@@ -69,10 +69,11 @@ namespace API.Controllers
             if ((file != null && file.Length > 0))
             {
                 var fileName = Path.GetFileName(file.FileName);
+                var extension= Path.GetExtension(file.FileName);
                 var path = Path.Combine("wwwroot/images/pharmacies", fileName);
                 var fileStream = new FileStream(path, FileMode.Create);
                 file.CopyTo(fileStream);
-                pharmacy.PictureUrl = fileName;
+                pharmacy.PictureUrl = fileName+extension;
 
             }
             if (ModelState.IsValid)
@@ -125,10 +126,11 @@ namespace API.Controllers
             {
                 var file = Request.Form.Files[0];
                 var fileName = Path.GetFileName(file.FileName);
+                var extension= Path.GetExtension(file.FileName);
                 var path = Path.Combine("wwwroot/images/pharmacies", fileName);
                 var fileStream = new FileStream(path, FileMode.Create);
                 file.CopyTo(fileStream);
-                pharmacy.PictureUrl = fileName;
+                pharmacy.PictureUrl = fileName+extension;
                 _PharmacyRepo.Update(pharmacy);
                 return Ok();
 
