@@ -125,6 +125,9 @@ namespace API.Data.Migrations
                     b.Property<int>("WorkHours")
                         .HasColumnType("int");
 
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SpecializationId");

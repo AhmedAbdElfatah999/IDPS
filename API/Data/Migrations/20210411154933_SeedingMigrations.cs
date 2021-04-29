@@ -126,7 +126,8 @@ namespace API.Data.Migrations
                     MyClinicAddress = table.Column<string>(nullable: true),
                     MyClinicName = table.Column<string>(nullable: true),
                     WorkHours = table.Column<int>(nullable: false),
-                    SpecializationId = table.Column<int>(nullable: false)
+                    SpecializationId = table.Column<int>(nullable: false),
+                     Rating = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
