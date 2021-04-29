@@ -93,6 +93,11 @@ namespace API.Controllers
             };
 
         }
+        //The Logout Method
+        public ActionResult Logout(){
+              HttpContext.Session.Clear();
+            return Ok();
+           }  
 
         [HttpPost("register")]
         public async Task<ActionResult<PatientDto>> Register(Patient patient)

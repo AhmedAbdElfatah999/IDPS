@@ -145,10 +145,11 @@ namespace API.Controllers
             {
                 var file = Request.Form.Files[0];
                 var fileName = Path.GetFileName(file.FileName);
+                var extension= Path.GetExtension(file.FileName);
                 var path = Path.Combine("wwwroot/images/Diseases", fileName);
                 var fileStream = new FileStream(path, FileMode.Create);
                 file.CopyTo(fileStream);
-                Disease.PictureUrl = fileName;
+                Disease.PictureUrl = fileName+extension;
                 _DiseaseRepo.Update(Disease);
                 return Ok();
 

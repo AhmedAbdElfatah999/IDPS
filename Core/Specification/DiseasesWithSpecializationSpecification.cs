@@ -7,7 +7,7 @@ namespace Core.Specification
     public class DiseasesWithSpecializationSpecification : BaseSpecification<Disease>
     {
         public DiseasesWithSpecializationSpecification(int id) 
-            : base(x => x.SpecializationId == id)
+            : base(x => x.Id  == id)
         {
             AddInclude(x => x.Specialization);
 
@@ -17,7 +17,7 @@ namespace Core.Specification
             :base(x => 
                 (string.IsNullOrEmpty(diseaseParams.Search) || x.Name.ToLower().Contains(diseaseParams.Search))
                 && 
-                (!diseaseParams.specId.HasValue || x.SpecializationId == diseaseParams.specId)
+                (!diseaseParams.specId.HasValue || x.Id  == diseaseParams.specId)
             )
         {
             AddInclude(x => x.Specialization);
