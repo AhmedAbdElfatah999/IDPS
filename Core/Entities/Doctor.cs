@@ -7,6 +7,7 @@ namespace Core.Entities
         public int WorkHours { get; set; }
         public virtual Specialization Specialization {get; set;}
         public int SpecializationId { get; set; }
+        public int Rating { get; set; }
 
         public bool IsActivated=false;
 
