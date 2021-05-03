@@ -59,7 +59,7 @@ namespace API.Controllers
             {
                 var fileName = Path.GetFileName(file.FileName);
                 var extension= Path.GetExtension(file.FileName);
-                var path = Path.Combine("wwwroot/images/medicines", fileName);
+                var path = Path.Combine("./client/src/assets/medicines", fileName);
                 var fileStream = new FileStream(path, FileMode.Create);
                 file.CopyTo(fileStream);
                 medicine.PictureUrl = fileName+extension;
@@ -116,7 +116,7 @@ namespace API.Controllers
                 var file = Request.Form.Files[0];
                 var fileName = Path.GetFileName(file.FileName);
                 var extension= Path.GetExtension(file.FileName);
-                var path = Path.Combine("wwwroot/images/medicines", fileName);
+                var path = Path.Combine("./client/src/assets/medicines", fileName);
                 var fileStream = new FileStream(path, FileMode.Create);
                 file.CopyTo(fileStream);
                 medicine.PictureUrl = fileName+extension;
