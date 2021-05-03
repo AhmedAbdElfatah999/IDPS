@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using Infrastructure.Services;
+using System.IO;
 
 namespace API.Controllers
 {
@@ -205,6 +206,57 @@ namespace API.Controllers
         {
             return Ok();
         }
+        //Edit Profile Functionality
+    [Authorize(Roles=PersonRoles.Admin)]   
+    [HttpGet]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult<Admin>> EditProfile(int? id)
+    {
+            if (id == null)
+            {
+                return BadRequest(new ApiResponse(400));
+            }
+
+       var admin= await _AdminRepo.GetByIdAsync((int)id);
+            if (admin == null)
+            {
+                return  BadRequest(new ApiResponse(400));
+            }
+        return Ok(admin);
+    }
+        [Authorize(Roles=PersonRoles.Admin)]
+        [HttpPost]
+        public IActionResult EditProfile(Admin admin)
+        {
+            if (Request.Form.Files.Any())
+            {
+                var file = Request.Form.Files[0];
+                var fileName = Path.GetFileName(file.FileName);
+                var extension= Path.GetExtension(file.FileName);
+                var path = Path.Combine("./client/src/assets/user", fileName);
+                var fileStream = new FileStream(path, FileMode.Create);
+                file.CopyTo(fileStream);
+                admin.PictureUrl = fileName+extension;
+                _AdminRepo.Update(admin);
+                return Ok();
+
+            }
+            else
+            {
+               _AdminRepo.Update(admin);
+                return Ok();
+            }
+        }//function Ends here
+       //Delete Profile Functinality
+        [Authorize(Roles=PersonRoles.Admin)]  
+        [HttpPost]
+        public ActionResult DeleteProfile(Admin admin)
+        {
+            
+                 _AdminRepo.Delete(admin);
+                  return Ok();
+        }
+
 
     }
 }

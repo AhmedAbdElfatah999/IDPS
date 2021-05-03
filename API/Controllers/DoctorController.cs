@@ -13,6 +13,7 @@ using System;
 using System.Linq;
 using API.Helpers;
 using Core.Specification;
+using System.IO;
 
 namespace API.Controllers
 {
@@ -211,6 +212,59 @@ namespace API.Controllers
         {
             return Ok();
         }
+        //Edit Profile Functionality
+    [Authorize(Roles=PersonRoles.Admin)] 
+    [Authorize(Roles=PersonRoles.Doctor)]   
+    [HttpGet]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult<Doctor>> EditProfile(int? id)
+    {
+            if (id == null)
+            {
+                return BadRequest(new ApiResponse(400));
+            }
+
+       var doctor= await _DoctorRepo.GetByIdAsync((int)id);
+            if (doctor == null)
+            {
+                return  BadRequest(new ApiResponse(400));
+            }
+        return Ok(doctor);
+    }
+        [Authorize(Roles=PersonRoles.Admin)]
+        [Authorize(Roles=PersonRoles.Doctor)]
+        [HttpPost]
+        public IActionResult EditProfile(Doctor doctor)
+        {
+            if (Request.Form.Files.Any())
+            {
+                var file = Request.Form.Files[0];
+                var fileName = Path.GetFileName(file.FileName);
+                var extension= Path.GetExtension(file.FileName);
+                var path = Path.Combine("./client/src/assets/user", fileName);
+                var fileStream = new FileStream(path, FileMode.Create);
+                file.CopyTo(fileStream);
+               doctor.PictureUrl = fileName+extension;
+                _DoctorRepo.Update(doctor);
+                return Ok();
+
+            }
+            else
+            {
+               _DoctorRepo.Update(doctor);
+                return Ok();
+            }
+        }//function Ends here
+       //Delete Profile Functinality
+        [Authorize(Roles=PersonRoles.Admin)]
+         [Authorize(Roles=PersonRoles.Doctor)]   
+        [HttpPost]
+        public ActionResult DeleteProfile(Doctor doctor)
+        {
+            
+                 _DoctorRepo.Delete(doctor);
+                  return Ok();
+        }        
 
     }
 }

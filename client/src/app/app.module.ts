@@ -8,11 +8,13 @@ import { IDPSModule } from './idps/idps.module';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 // PaginationModule
 import {NgxPaginationModule} from 'ngx-pagination';
+import { AccountComponent } from './account/account.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,

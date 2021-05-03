@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Dtos;
@@ -8,6 +9,7 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -185,6 +187,56 @@ namespace API.Controllers
         public IActionResult ResetPasswordConfirmation()
         {
             return Ok();
-        }   
+        } 
+        //Edit Profile Functionality
+    [Authorize(Roles=PersonRoles.Patient)]   
+    [HttpGet]
+    [ValidateAntiForgeryToken]
+    public async Task<ActionResult<Patient>> EditProfile(int? id)
+    {
+            if (id == null)
+            {
+                return BadRequest(new ApiResponse(400));
+            }
+
+       var patient= await _PatientRepo.GetByIdAsync((int)id);
+            if ( patient == null)
+            {
+                return  BadRequest(new ApiResponse(400));
+            }
+        return Ok(patient);
+    }
+        [Authorize(Roles=PersonRoles.Patient)]
+        [HttpPost]
+        public IActionResult EditProfile(Patient  patient)
+        {
+            if (Request.Form.Files.Any())
+            {
+                var file = Request.Form.Files[0];
+                var fileName = Path.GetFileName(file.FileName);
+                var extension= Path.GetExtension(file.FileName);
+                var path = Path.Combine("./client/src/assets/user", fileName);
+                var fileStream = new FileStream(path, FileMode.Create);
+                file.CopyTo(fileStream);
+                patient.PictureUrl = fileName+extension;
+                _PatientRepo.Update(patient);
+                return Ok();
+
+            }
+            else
+            {
+               _PatientRepo.Update(patient);
+                return Ok();
+            }
+        }//function Ends here
+       //Delete Profile Functinality
+         [Authorize(Roles=PersonRoles.Patient)]   
+        [HttpPost]
+        public ActionResult DeleteProfile(Patient  patient)
+        {
+            
+                 _PatientRepo.Delete(patient);
+                  return Ok();
+        }           
     }
 }
