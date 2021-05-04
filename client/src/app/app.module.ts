@@ -7,24 +7,19 @@ import { CoreModule } from './core/core.module';
 import { IDPSModule } from './idps/idps.module';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 // PaginationModule
-import {NgxPaginationModule} from 'ngx-pagination';
-import { AccountComponent } from './account/account.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AccountComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
     IDPSModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
