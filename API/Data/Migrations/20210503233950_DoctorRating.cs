@@ -6,8 +6,10 @@ namespace API.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
+
             migrationBuilder.AddColumn<int>(
-                name: "Rating",
+                name: "MyRate",
                 table: "Doctors",
                 nullable: false,
                 defaultValue: 0);
@@ -16,8 +18,15 @@ namespace API.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Rating",
+                name: "MyRate",
                 table: "Doctors");
+
+            migrationBuilder.AddColumn<int>(
+                name: "MyRate",
+                table: "Doctors",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
     }
 }

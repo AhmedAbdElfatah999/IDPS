@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(IDPSContext))]
-    [Migration("20210503222543_DoctorRating")]
+    [Migration("20210503233950_DoctorRating")]
     partial class DoctorRating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,6 +85,9 @@ namespace API.Data.Migrations
                     b.Property<string>("MyClinicName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MyRate")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -109,9 +112,6 @@ namespace API.Data.Migrations
 
                     b.Property<string>("PictureUrl")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

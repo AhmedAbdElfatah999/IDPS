@@ -87,7 +87,8 @@ namespace Infrastructure.Identity.Migrations
                     SpecializationId = table.Column<int>(nullable: true),
                     Weight = table.Column<double>(nullable: true),
                     Hight = table.Column<double>(nullable: true),
-                    BloodType = table.Column<string>(nullable: true)
+                    BloodType = table.Column<string>(nullable: true),
+                   MyRate = table.Column<int>(nullable: true),
                 },
                 constraints: table =>
                 {

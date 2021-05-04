@@ -277,7 +277,8 @@ namespace Infrastructure.Identity.Migrations
 
                     b.Property<int>("WorkHours")
                         .HasColumnType("int");
-
+                    b.Property<int>("MyRate")
+                        .HasColumnType("int");
                     b.HasIndex("SpecializationId");
 
                     b.HasDiscriminator().HasValue("Doctor");
