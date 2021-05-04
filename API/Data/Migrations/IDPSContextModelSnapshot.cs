@@ -83,6 +83,9 @@ namespace API.Data.Migrations
                     b.Property<string>("MyClinicName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MyRate")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -107,9 +110,6 @@ namespace API.Data.Migrations
 
                     b.Property<string>("PictureUrl")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
