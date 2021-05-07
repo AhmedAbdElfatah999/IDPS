@@ -53,10 +53,10 @@ namespace API.Controllers
             
             var doctors = await _DoctorRepo.ListAsync(spec);
 
-            //var data = _mapper.Map<IReadOnlyList<Doctor>, IReadOnlyList<DoctorDto>>(doctors);
+            var data = _mapper.Map<IReadOnlyList<Doctor>, IReadOnlyList<DoctorDto>>(doctors);
 
-            return Ok(new Pagination<Doctor>(doctorParams.PageIndex,
-            doctorParams.PageSize, totalItems, doctors));
+            return Ok(new Pagination<DoctorDto>(doctorParams.PageIndex,
+            doctorParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]
