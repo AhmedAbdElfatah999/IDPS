@@ -22,11 +22,8 @@ export class AccountService {
   // tslint:disable-next-line: typedef
   loadCurrentUser(token: string) {
     let headers = new HttpHeaders();
-    headers = headers.set(
-      'Authorization ',
-      'Bearer' + localStorage.getItem('token')
-    );
-    return this.http.get(this.baseUrl + 'admin', { headers }).pipe(
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.baseUrl + 'admin/login', { headers }).pipe(
       map((user: IUser) => {
         if (user) {
           // tslint:disable-next-line: whitespace

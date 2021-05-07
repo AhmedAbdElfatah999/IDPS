@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
+import { AccountService } from './account/account.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,5 +8,20 @@ import {PaginationModule} from 'ngx-bootstrap/pagination';
 })
 export class AppComponent implements OnInit {
   title = 'client';
-  ngOnInit(): void{}
+  constructor(private accountService: AccountService) { }
+  ngOnInit(): void {
+    this.loadCurrentUser();
+  }
+
+  loadCurrentUser() {
+    const token = localStorage.getItem('token');
+    this.accountService.loadCurrentUser(token).subscribe(() => {
+      console.log('loaded user'+token);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+
+
 }
