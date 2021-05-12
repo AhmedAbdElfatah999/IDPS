@@ -14,6 +14,7 @@ using System.Linq;
 using API.Helpers;
 using Core.Specification;
 using System.IO;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -88,6 +89,20 @@ namespace API.Controllers
             }
             
             return Ok();
+        }
+        [Authorize]
+        [HttpGet("Account")]
+        public async Task<ActionResult<DoctorDto>> GetCurrentUser()
+        {
+            var email = HttpContext.User?.Claims?.FirstOrDefault(x=>x.Type==ClaimTypes.Email)?.Value;
+            var doctor=await _userManager.FindByEmailAsync(email);
+
+            return new DoctorDto
+            {
+                Email = doctor.Email,
+                Token = _tokenService.CreateToken(doctor),
+                DisplayName = doctor.Name
+            };
         }
           //check for Email If it is already exists
         [HttpGet("emailexists")]

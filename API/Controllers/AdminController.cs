@@ -62,8 +62,8 @@ namespace API.Controllers
 
       //------------------------------The Identity Methods------------------------------
       
-        [Authorize(Roles=PersonRoles.Admin)]
-        [HttpGet]
+        [Authorize]
+        [HttpGet("Account")]
         public async Task<ActionResult<AdminDto>> GetCurrentUser()
         {
             var email = HttpContext.User?.Claims?.FirstOrDefault(x=>x.Type==ClaimTypes.Email)?.Value;
@@ -72,7 +72,7 @@ namespace API.Controllers
             return new AdminDto
             {
                 Email = admin.Email,
-                Token = "Message",
+                Token = _tokenService.CreateToken(admin),
                 DisplayName = admin.Name
             };
         }

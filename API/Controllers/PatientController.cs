@@ -12,6 +12,7 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -55,6 +56,20 @@ namespace API.Controllers
         {
            return await _PatientRepo.GetByIdAsync(id);
         } 
+        [Authorize]
+        [HttpGet("Account")]
+        public async Task<ActionResult<PatientDto>> GetCurrentUser()
+        {
+            var email = HttpContext.User?.Claims?.FirstOrDefault(x=>x.Type==ClaimTypes.Email)?.Value;
+            var patient=await _userManager.FindByEmailAsync(email);
+
+            return new PatientDto
+            {
+                Email = patient.Email,
+                Token = _tokenService.CreateToken(patient),
+                DisplayName = patient.Name
+            };
+        }
         //check for Email If it is already exists
         [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
