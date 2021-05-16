@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using Infrastructure.Services;
 using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Session;
 
 namespace API.Controllers
 {
@@ -62,18 +64,27 @@ namespace API.Controllers
 
       //------------------------------The Identity Methods------------------------------
       
-        [Authorize]
+        //[Authorize]
         [HttpGet("Account")]
         public async Task<ActionResult<AdminDto>> GetCurrentUser()
         {
-            var email = HttpContext.User?.Claims?.FirstOrDefault(x=>x.Type==ClaimTypes.Email)?.Value;
+            var email = HttpContext.Session.GetString("email");
             var admin=await _userManager.FindByEmailAsync(email);
-
+            //Last Login Functionality
+            TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)admin.LastLogin);
+            admin.LastLogin = DateTime.Now;
+            var lastLoginResult = await _userManager.UpdateAsync(admin);
+            if (!lastLoginResult.Succeeded)
+            {
+                throw new InvalidOperationException("Unexpected error occurred setting the last login date");
+            }
             return new AdminDto
             {
                 Email = admin.Email,
                 Token = _tokenService.CreateToken(admin),
-                DisplayName = admin.Name
+                DisplayName = admin.Name,
+                LastLogin=LastLoginDate
+
             };
         }
          //check for Email If it is already exists
@@ -103,6 +114,8 @@ namespace API.Controllers
             {
                 throw new InvalidOperationException("Unexpected error occurred setting the last login date");
             }
+            //save email in a session
+            HttpContext.Session.SetString("email",admin.Email);
             return new AdminDto
             {
                 Email = admin.Email,
