@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Session;
 
 using System;
 
@@ -50,18 +51,17 @@ namespace API
             });
            services.AddApplicationServices();
            services.AddIdentityServices(_configuration);
-
             // For Identity  
             services.AddIdentity<Person, IdentityRole>()  
                 .AddEntityFrameworkStores<AppIdentityDbContext>()  
                 .AddDefaultTokenProviders();  
            //google logins
-            /*
+        
         services.AddAuthentication()
         .AddGoogle(options =>
         {
-            options.ClientId =_configuration["Authentication:Google : ClientId"];
-            options.ClientSecret = _configuration["Authentication:Google : ClientSecret"]
+            options.ClientId =_configuration["Authentication:Google:ClientId"];
+            options.ClientSecret = _configuration["Authentication:Google:ClientSecret"];
              options.SignInScheme = "MyCookieMiddlewareInstance";
         });
         //facebook logins
@@ -72,7 +72,7 @@ namespace API
             facebookOptions.AppSecret =_configuration["Authentication:Facebook:AppSecret"];
              facebookOptions.SignInScheme = "MyCookieMiddlewareInstance";
 
-        });*/
+        });
 
         //add emailsender service
         services.Configure<EmailSender>(_configuration);
@@ -90,7 +90,8 @@ namespace API
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
                 });
             });
-           
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -118,9 +119,9 @@ namespace API
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-
+           
             app.UseSwaggerDocumentation();
-
+            app.UseSession(); 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

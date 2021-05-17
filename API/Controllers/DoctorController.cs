@@ -14,6 +14,9 @@ using System.Linq;
 using API.Helpers;
 using Core.Specification;
 using System.IO;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Controllers
 {
@@ -53,10 +56,10 @@ namespace API.Controllers
             
             var doctors = await _DoctorRepo.ListAsync(spec);
 
-            var data = _mapper.Map<IReadOnlyList<Doctor>, IReadOnlyList<DoctorDto>>(doctors);
+           // var data = _mapper.Map<IReadOnlyList<Doctor>, IReadOnlyList<DoctorDto>>(doctors);
 
-            return Ok(new Pagination<DoctorDto>(doctorParams.PageIndex,
-            doctorParams.PageSize, totalItems, data));
+            return Ok(new Pagination<Doctor>(doctorParams.PageIndex,
+            doctorParams.PageSize, totalItems,  doctors));
         }
 
         [HttpGet("{id}")]
@@ -89,6 +92,28 @@ namespace API.Controllers
             
             return Ok();
         }
+        [Authorize]
+        [HttpGet("Account")]
+        public async Task<ActionResult<DoctorDto>> GetCurrentUser()
+        {
+            var email = HttpContext.Session.GetString("email");
+            var doctor=await _userManager.FindByEmailAsync(email);
+            //Last Login Functionality
+            TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)doctor.LastLogin);
+            doctor.LastLogin = DateTime.Now;
+            var lastLoginResult = await _userManager.UpdateAsync(doctor);
+            if (!lastLoginResult.Succeeded)
+            {
+                throw new InvalidOperationException("Unexpected error occurred setting the last login date");
+            }
+            return new DoctorDto
+            {
+                Email = doctor.Email,
+                Token = _tokenService.CreateToken(doctor),
+                DisplayName = doctor.Name,
+                LastLogin=LastLoginDate
+            };
+        }
           //check for Email If it is already exists
         [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
@@ -115,6 +140,8 @@ namespace API.Controllers
             {
                 throw new InvalidOperationException("Unexpected error occurred setting the last login date");
             }
+            //save email in a session
+            HttpContext.Session.SetString("email",doctor.Email);             
             return new DoctorDto
             {
                 Email = doctor.Email,

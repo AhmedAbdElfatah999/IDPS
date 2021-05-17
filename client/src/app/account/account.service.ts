@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/models/user';
@@ -15,21 +15,26 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
+
+
   // tslint:disable-next-line: typedef
   getCurrentUserValue() {
     return this.currentUserSource.value;
   }
+
   // tslint:disable-next-line: typedef
   loadCurrentUser(token: string) {
+    if (token == null) {
+      this.currentUserSource.next(null);
+      return of(null);
+    }
+
     let headers = new HttpHeaders();
-    headers = headers.set(
-      'Authorization ',
-      'Bearer' + localStorage.getItem('token')
-    );
-    return this.http.get(this.baseUrl + 'admin', { headers }).pipe(
+    headers = headers.set('Authorization', `Bearer ${token}`);
+
+    return this.http.get(this.baseUrl + 'admin/Account', { headers }).pipe(
       map((user: IUser) => {
         if (user) {
-          // tslint:disable-next-line: whitespace
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
         }
@@ -66,6 +71,6 @@ export class AccountService {
   }
   // tslint:disable-next-line: typedef
   checkEmailExists(email: string) {
-    return this.http.get(this.baseUrl + '/admin/emailexists?email=' + email);
+    return this.http.get(this.baseUrl + 'admin/emailexists?email=' + email);
   }
 }

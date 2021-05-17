@@ -13,6 +13,7 @@ namespace Infrastructure.Identity
      public DbSet<Admin> Admins {get;set;}
      public DbSet<Doctor> Doctors {get;set;}
      public DbSet<Patient> Patients {get;set;}
+     public DbSet<Specialization> Specializations {get;set;}
     // public DbSet<IdentityRole> dentityRoles {get;set;}
         protected override void OnModelCreating(ModelBuilder builder) 
         {

@@ -12,6 +12,9 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Controllers
 {
@@ -55,6 +58,28 @@ namespace API.Controllers
         {
            return await _PatientRepo.GetByIdAsync(id);
         } 
+        [Authorize]
+        [HttpGet("Account")]
+        public async Task<ActionResult<PatientDto>> GetCurrentUser()
+        {
+            var email = HttpContext.Session.GetString("email");
+            var patient=await _userManager.FindByEmailAsync(email);
+            //Last Login Functionality
+            TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)patient.LastLogin);
+            patient.LastLogin = DateTime.Now;
+            var lastLoginResult = await _userManager.UpdateAsync(patient);
+            if (!lastLoginResult.Succeeded)
+            {
+                throw new InvalidOperationException("Unexpected error occurred setting the last login date");
+            }
+            return new PatientDto
+            {
+                Email = patient.Email,
+                Token = _tokenService.CreateToken(patient),
+                DisplayName = patient.Name,
+                LastLogin=LastLoginDate
+            };
+        }
         //check for Email If it is already exists
         [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
@@ -87,6 +112,8 @@ namespace API.Controllers
             {
                 throw new InvalidOperationException("Unexpected error occurred setting the last login date");
             }
+            //save email in a session
+            HttpContext.Session.SetString("email",patient.Email);            
             return new PatientDto
             {
                 Email = patient.Email,
