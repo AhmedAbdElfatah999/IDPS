@@ -23,7 +23,7 @@ export class AccountService {
   loadCurrentUser(token: string) {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
-    return this.http.get(this.baseUrl + 'admin/login', { headers }).pipe(
+    return this.http.get(this.baseUrl + 'admin/login').pipe(
       map((user: IUser) => {
         if (user) {
           // tslint:disable-next-line: whitespace
