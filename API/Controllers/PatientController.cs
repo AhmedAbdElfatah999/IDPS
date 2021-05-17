@@ -78,6 +78,7 @@ namespace API.Controllers
                 await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password,
                 loginDto.RememberMe, false);
             }
+            
             //Last Login Functionality
             TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)patient.LastLogin);
             patient.LastLogin = DateTime.Now;
