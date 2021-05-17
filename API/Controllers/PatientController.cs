@@ -97,7 +97,13 @@ namespace API.Controllers
 
             var result = _signInManager.UserManager.Users.Where(x=>x.Password==loginDto.Password);
 
-           if (result ==null) return Unauthorized(new ApiResponse(401));
+            if (result ==null) return Unauthorized(new ApiResponse(401));
+            
+            if(loginDto.RememberMe == true){
+                await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password,
+                loginDto.RememberMe, false);
+            }
+            
             //Last Login Functionality
             TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)patient.LastLogin);
             patient.LastLogin = DateTime.Now;
@@ -114,7 +120,6 @@ namespace API.Controllers
                 Token =_tokenService.CreateToken(patient),
                 DisplayName = patient.Name,
                 LastLogin=LastLoginDate
-
             };
 
         }

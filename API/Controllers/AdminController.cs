@@ -108,6 +108,12 @@ namespace API.Controllers
             HttpContext.Session.SetString("email",admin.Email);
 
            if (result ==null) return Unauthorized(new ApiResponse(401));
+
+           if(loginDto.RememberMe == true){
+                await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password,
+                loginDto.RememberMe, false);
+            }
+            
             //Last Login Functionality
             TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)admin.LastLogin);
             admin.LastLogin = DateTime.Now;
