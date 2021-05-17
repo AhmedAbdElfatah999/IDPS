@@ -30,9 +30,9 @@ const routes: Routes = [
     path: 'account',
     loadChildren: () =>
       import('./account/account.module').then((mod) => mod.AccountModule),
-    data: { breadcrumb: { skip: true } }
+    data: { breadcrumb: { skip: true } },
   },
-  { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
+  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 ];
 
 @NgModule({
