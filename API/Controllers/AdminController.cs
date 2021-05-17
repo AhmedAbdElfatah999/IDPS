@@ -104,6 +104,8 @@ namespace API.Controllers
             if (admin == null) return Unauthorized(new ApiResponse(401));;
 
             var result = _signInManager.UserManager.Users.Where(x=>x.Password==loginDto.Password);
+            //save email in a session
+            HttpContext.Session.SetString("email",admin.Email);
 
            if (result ==null) return Unauthorized(new ApiResponse(401));
             //Last Login Functionality
@@ -114,8 +116,7 @@ namespace API.Controllers
             {
                 throw new InvalidOperationException("Unexpected error occurred setting the last login date");
             }
-            //save email in a session
-            HttpContext.Session.SetString("email",admin.Email);
+
             return new AdminDto
             {
                 Email = admin.Email,
