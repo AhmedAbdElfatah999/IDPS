@@ -132,6 +132,12 @@ namespace API.Controllers
             var result = _signInManager.UserManager.Users.Where(x=>x.Password==loginDto.Password);
 
            if (result ==null) return Unauthorized(new ApiResponse(401));
+
+           if(loginDto.RememberMe == true){
+                await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password,
+                loginDto.RememberMe, false);
+            }
+            
             //Last Login Functionality
             TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)doctor.LastLogin);
             doctor.LastLogin = DateTime.Now;
