@@ -63,7 +63,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Doctor>> GetDoctor(int id)
+        public async Task<ActionResult<Doctor>> GetDoctor(string id)
         {
            return await _DoctorRepo.GetByIdAsync(id);
         }
@@ -250,14 +250,14 @@ namespace API.Controllers
     [Authorize(Roles=PersonRoles.Doctor)]   
     [HttpGet]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<Doctor>> EditProfile(int? id)
+    public async Task<ActionResult<Doctor>> EditProfile(string id)
     {
             if (id == null)
             {
                 return BadRequest(new ApiResponse(400));
             }
 
-       var doctor= await _DoctorRepo.GetByIdAsync((int)id);
+       var doctor= await _DoctorRepo.GetByIdAsync(id);
             if (doctor == null)
             {
                 return  BadRequest(new ApiResponse(400));

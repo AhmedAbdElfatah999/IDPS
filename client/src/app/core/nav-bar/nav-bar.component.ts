@@ -10,9 +10,12 @@ import { IUser } from 'src/app/shared/models/user';
 })
 export class NavBarComponent implements OnInit {
   currentUser$: Observable<IUser>;
-  constructor(private accountServive: AccountService) {}
 
+  constructor(private accountServive: AccountService) {}
+  LoginStatus$ : Observable<boolean>;
   ngOnInit(): void {
     this.currentUser$ = this.accountServive.currentUser$;
+    localStorage.setItem('token', this.accountServive.MyToken);
+   this.LoginStatus$=this.accountServive.isLoggesIn;
   }
 }

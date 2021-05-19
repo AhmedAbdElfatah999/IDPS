@@ -31,7 +31,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(int id)
+        public async Task<ActionResult<Person>> GetPerson(string id)
         {
            return await _PersonRepo.GetByIdAsync(id);
         }

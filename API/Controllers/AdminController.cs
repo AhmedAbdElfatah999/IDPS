@@ -15,7 +15,6 @@ using System;
 using Infrastructure.Services;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Session;
 
 namespace API.Controllers
 {
@@ -33,10 +32,11 @@ namespace API.Controllers
         private readonly SignInManager<Person> _signInManager;
         private readonly ITokenService _tokenService;
          private readonly RoleManager<IdentityRole> _roleManager;  
+         private readonly IHttpContextAccessor _httpContextAccessor;
 
        //Initialize them in the controller
         public AdminController(IPersonGenericRepository<Admin> AdminRepo, IMapper mapper,UserManager<Person> userManager,
-         SignInManager<Person> signInManager,ITokenService tokenService,RoleManager<IdentityRole> roleManager)
+         SignInManager<Person> signInManager,ITokenService tokenService,RoleManager<IdentityRole> roleManager,IHttpContextAccessor httpContextAccessor)
         {
             _AdminRepo = AdminRepo;
             _mapper = mapper;
@@ -44,6 +44,7 @@ namespace API.Controllers
             _userManager=userManager;
             _tokenService=tokenService;
             _roleManager=roleManager;
+            _httpContextAccessor=httpContextAccessor;
         }
          [Authorize(Roles=PersonRoles.Admin)]
         [HttpGet("Admins")]
@@ -57,7 +58,7 @@ namespace API.Controllers
         }
         [Authorize(Roles=PersonRoles.Admin)]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Admin>> GetAdmin(int id)
+        public async Task<ActionResult<Admin>> GetAdmin(string id)
         {
            return await _AdminRepo.GetByIdAsync(id);
         }
@@ -68,7 +69,9 @@ namespace API.Controllers
         [HttpGet("Account")]
         public async Task<ActionResult<AdminDto>> GetCurrentUser()
         {
-            var email = HttpContext.Session.GetString("email");
+            var emailx= HttpContext.Session.GetString("email");
+            var email = _httpContextAccessor.HttpContext.User.FindFirst(x=>x.Type==ClaimTypes.Email).Value;
+
             var admin=await _userManager.FindByEmailAsync(email);
             //Last Login Functionality
             TimeSpan LastLoginDate=DateTime.Now.Subtract((DateTime)admin.LastLogin);
@@ -230,14 +233,14 @@ namespace API.Controllers
     [Authorize(Roles=PersonRoles.Admin)]   
     [HttpGet]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<Admin>> EditProfile(int? id)
+    public async Task<ActionResult<Admin>> EditProfile(string id)
     {
-            if (id == null)
+            if (id==null)
             {
                 return BadRequest(new ApiResponse(400));
             }
 
-       var admin= await _AdminRepo.GetByIdAsync((int)id);
+       var admin= await _AdminRepo.GetByIdAsync(id);
             if (admin == null)
             {
                 return  BadRequest(new ApiResponse(400));

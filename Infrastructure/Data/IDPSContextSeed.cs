@@ -93,19 +93,7 @@ namespace Infrastructure.Data
                     await context.SaveChangesAsync();
                 }
                 
-                if(!context.Doctors.Any())
-                {
-                    var doctorData = 
-                        File.ReadAllText("../Infrastructure/Data/SeedData/Doctors.json");
-                    
-                    var doctor = JsonSerializer.Deserialize<List<Doctor>>(doctorData);
-
-                    foreach(var item in doctor)
-                    {
-                        context.Doctors.Add(item);
-                    }
-                    await context.SaveChangesAsync();
-                }
+                
 
             }
             catch (Exception ex)

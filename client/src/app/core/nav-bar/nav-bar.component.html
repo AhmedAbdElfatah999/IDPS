@@ -114,6 +114,9 @@
           </ng-container>
           <ng-container *ngIf="currentUser$|async" >
             <a href="">Welcome {{(currentUser$|async).displayName}}</a>
+          <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
+          <a class="nav-link text-danger" *ngIf="(currentUser$ | async).displayName as UserName">{{UserName | uppercase}}</a>
+        </li>
           </ng-container>
           </li>
         </ul>
