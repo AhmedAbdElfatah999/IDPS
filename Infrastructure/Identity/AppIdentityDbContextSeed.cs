@@ -31,7 +31,7 @@ namespace Infrastructure.Identity
             if(!userManager.Users.Any())
                 {
                     //add Admin
-                var user = new Person
+                var admin = new Admin
                 {
                     Name = "Bob",
                     Email = "bob@test.com",
@@ -40,10 +40,24 @@ namespace Infrastructure.Identity
                     Password="Pa$$w0rd"
                 };
 
-                await userManager.CreateAsync(user);
+                await userManager.CreateAsync(admin);
              if (await _roleManager.RoleExistsAsync(PersonRoles.Admin))  
                     {  
-                        await userManager.AddToRoleAsync(user, PersonRoles.Admin);  
+                        await userManager.AddToRoleAsync(admin, PersonRoles.Patient);  
+                    } 
+                var patient = new Patient
+                {
+                    Name = "Ali",
+                    Email = "ali@test.com",
+                    UserName = "ali@test.com",
+                    Address ="10 street ,Giza",
+                    Password="Pa$$w0rd"
+                };
+
+                await userManager.CreateAsync(patient);
+             if (await _roleManager.RoleExistsAsync(PersonRoles.Patient))  
+                    {  
+                        await userManager.AddToRoleAsync(patient, PersonRoles.Patient);  
                     } 
                     
                  //add doctors   

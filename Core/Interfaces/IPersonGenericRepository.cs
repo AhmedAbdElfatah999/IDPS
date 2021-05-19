@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Specification;
+using Core.Entities;
 
 namespace Core.Interfaces
 {
     public interface IPersonGenericRepository<T>
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(string id);
          Task<IReadOnlyList<T>> ListAllAsync();
          Task<T> GetEntityWithSpec(ISpecification<T> spec);
          Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
@@ -14,5 +15,6 @@ namespace Core.Interfaces
          void Add(T entity);
          void Update(T entity);
          void Delete(T entity); 
+
     }
 }

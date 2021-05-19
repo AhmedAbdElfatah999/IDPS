@@ -21,7 +21,7 @@ namespace API.Controllers
     
     public class PatientController :BaseApiController
     {
-        private readonly IGenericRepository<Patient> _PatientRepo;
+        private readonly IPersonGenericRepository<Patient> _PatientRepo;
        private readonly UserManager<Person> _userManager;
         //_signInManager used to check the Password if exists or not
         private readonly SignInManager<Person> _signInManager;
@@ -29,7 +29,7 @@ namespace API.Controllers
          private readonly RoleManager<IdentityRole> _roleManager;  
 
         private readonly IMapper _mapper;
-        public PatientController(IGenericRepository<Patient> PatientRepo
+        public PatientController(IPersonGenericRepository<Patient> PatientRepo
         , IMapper mapper,UserManager<Person> userManager,
          SignInManager<Person> signInManager,ITokenService tokenService
          ,RoleManager<IdentityRole> roleManager)
@@ -54,7 +54,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Patient>> GetPatient(int id)
+        public async Task<ActionResult<Patient>> GetPatient(string id)
         {
            return await _PatientRepo.GetByIdAsync(id);
         } 
@@ -220,14 +220,14 @@ namespace API.Controllers
     [Authorize(Roles=PersonRoles.Patient)]   
     [HttpGet]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult<Patient>> EditProfile(int? id)
+    public async Task<ActionResult<Patient>> EditProfile(string id)
     {
             if (id == null)
             {
                 return BadRequest(new ApiResponse(400));
             }
 
-       var patient= await _PatientRepo.GetByIdAsync((int)id);
+       var patient= await _PatientRepo.GetByIdAsync(id);
             if ( patient == null)
             {
                 return  BadRequest(new ApiResponse(400));

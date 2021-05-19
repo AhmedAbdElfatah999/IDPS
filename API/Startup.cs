@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Authentication.Certificate;
 
 using System;
 
@@ -40,6 +41,7 @@ namespace API
             services.AddScoped<IDiseaseRepository,DiseaseRepository>();
             services.AddScoped(typeof(IGenericRepository<>),(typeof(GenericRepository<>)));
             services.AddScoped(typeof(IPersonGenericRepository<>),(typeof(PersonGenericRepository<>)));
+                        services.AddScoped(typeof(IMessageGenericRepository<>),(typeof(MessageGenericRepository<>)));
             services.AddScoped<ITokenService,TokenService>();
             services.AddControllers();
             services.AddAutoMapper(typeof(MappingProfiles));
@@ -81,7 +83,9 @@ namespace API
                   opt.TokenLifespan = TimeSpan.FromHours(2));
 
         services.Configure<AuthMessageSenderOptions>(_configuration);
-
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
            services.AddSwaggerDocumentation();             
             services.AddCors(opt => 
             {
@@ -91,7 +95,16 @@ namespace API
                 });
             });
             services.AddDistributedMemoryCache();
-            services.AddSession();
+            services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromMinutes(2880);//We set Time here 
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
+    services.AddAuthentication(
+        CertificateAuthenticationDefaults.AuthenticationScheme)
+        .AddCertificate();
+         services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 namespace Core.Entities
 {
     public class Doctor :Person
@@ -8,8 +11,11 @@ namespace Core.Entities
         public virtual Specialization Specialization {get; set;}
         public int SpecializationId { get; set; }
         public int MyRate { get; set; }
-
         public bool IsActivated=false;
+
+        public ICollection<Message> MyMessage { get; set; }
+        public ICollection<Photo> Photos { get; set; }
+        
 
     }
 }
