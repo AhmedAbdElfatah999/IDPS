@@ -19,6 +19,7 @@ namespace Infrastructure.Identity
         {
             base.OnModelCreating(builder);
 
+
         }
     }
 }
