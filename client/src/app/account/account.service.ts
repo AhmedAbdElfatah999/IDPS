@@ -6,6 +6,10 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/models/user';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { Message } from '../shared/models/message';
+import { PaginatedResult } from '../shared/models/pagination';
+import {  HttpParams } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,6 +18,9 @@ export class AccountService {
   private currentUserSource = new BehaviorSubject<IUser>(null);
   currentUser$ = this.currentUserSource.asObservable();
   MyToken= null;
+  decodedToken: any;
+  jwtHelper = new JwtHelperService();
+  User=null;
 
   constructor(private http: HttpClient, private router: Router) {}
   private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus());
@@ -26,36 +33,68 @@ export class AccountService {
   // tslint:disable-next-line: typedef
   loadCurrentUser(token: string) {
 
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Bearer ${this.MyToken}`);
 
-    return this.http.get(this.baseUrl + 'admin/Account', { headers }).pipe(
-      map((user: IUser) => {
-        if (user) {
-          localStorage.setItem('token', this.MyToken);
-          this.currentUserSource.next(user);
-        }
-      })
-    );
+          this.MyToken=this.User.token;
+          localStorage.setItem('Id', this.User.id);
+          localStorage.setItem('token', token);
+          this.currentUserSource.next(this.User);
+
+
   }
   // tslint:disable-next-line: typedef
   login(values: any) {
-    return this.http.post(this.baseUrl + 'admin/login', values).pipe(
+    return this.http.post(this.baseUrl + 'patient/login', values).pipe(
       map((user: IUser) => {
         if (user) {
+          localStorage.setItem('Id', user.id);
+          this.User=user;
           this.MyToken=user.token;
           localStorage.setItem('token', user.token);
           localStorage.setItem('loginstatus','1');
+          localStorage.setItem('user', JSON.stringify(user));
+          this.decodedToken = this.jwtHelper.decodeToken(user.token);
           this.currentUserSource.next(user);
         }
       })
     );
   }
+// tslint:disable-next-line: typedef
+    doctorLogin(values: any) {
+      return this.http.post(this.baseUrl + 'doctor/login', values).pipe(
+        map((user: IUser) => {
+          if (user) {
+            localStorage.setItem('Id', user.id);
+            this.User=user;
+            this.MyToken=user.token;
+            localStorage.setItem('token', user.token);
+            this.decodedToken = this.jwtHelper.decodeToken(user.token);
+            this.currentUserSource.next(user);
+          }
+        })
+      );
+    }
+// tslint:disable-next-line: typedef
+patientLogin(values: any) {
+  return this.http.post(this.baseUrl + 'patient/login', values).pipe(
+    map((user: IUser) => {
+      if (user) {
+        localStorage.setItem('Id', user.id);
+        this.User=user;
+        this.MyToken=user.token;
+        localStorage.setItem('token', user.token);
+        this.decodedToken = this.jwtHelper.decodeToken(user.token);
+        this.currentUserSource.next(user);
+      }
+    })
+  );
+}
   // tslint:disable-next-line: typedef
   register(values: any) {
     return this.http.post(this.baseUrl + 'admin/register', values).pipe(
       map((user: IUser) => {
         if (user) {
+          this.User=user;
+          localStorage.setItem('pic', user.photoUrl);
           localStorage.setItem('token', user.token);
           this.currentUserSource.next(user);
         }
@@ -84,4 +123,44 @@ export class AccountService {
   {
       return this.loginStatus.asObservable();
   }
+
+//Messaging Part Start From Here
+
+
+  getMessages(id: string, page?, itemsPerPage?, messageContainer?) {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+
+    let params = new HttpParams();
+
+    params = params.append('MessageContainer', messageContainer);
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http.get<Message[]>(this.baseUrl + 'user/' + id + '/messages', {observe: 'response', params})
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') !== null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+
+          return paginatedResult;
+        })
+      );
+  }
+
+  deleteMessage(id: number, userId: number) {
+    return this.http.post(this.baseUrl + 'user/' + userId + '/messages/' + id, {});
+  }
+
+
+
+
+
+
+
+
 }

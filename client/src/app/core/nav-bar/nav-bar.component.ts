@@ -1,6 +1,8 @@
+import { AppComponent } from './../../app.component';
+import { AccountService } from './../../account/account.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AccountService } from 'src/app/account/account.service';
+import { from, Observable } from 'rxjs';
+
 import { IUser } from 'src/app/shared/models/user';
 
 @Component({
@@ -9,13 +11,17 @@ import { IUser } from 'src/app/shared/models/user';
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit {
-  currentUser$: Observable<IUser>;
 
-  constructor(private accountServive: AccountService) {}
+
+  constructor(private accountService: AccountService,private appService:AppComponent) {}
   LoginStatus$ : Observable<boolean>;
+  currentUser$: any;
+
   ngOnInit(): void {
-    this.currentUser$ = this.accountServive.currentUser$;
-    localStorage.setItem('token', this.accountServive.MyToken);
-   this.LoginStatus$=this.accountServive.isLoggesIn;
+    this.currentUser$ =JSON.parse(localStorage.getItem('user'));
+    localStorage.setItem('token',this.appService.Mytoken);
+    console.log(this.appService.Mytoken+"from nav bar component");
+    console.log(localStorage.getItem('user'));
+   this.LoginStatus$=this.accountService.isLoggesIn;
   }
 }

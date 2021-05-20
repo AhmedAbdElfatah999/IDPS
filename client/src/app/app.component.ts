@@ -1,3 +1,5 @@
+import { IUser } from 'src/app/shared/models/user';
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './account/account.service';
 @Component({
@@ -11,19 +13,15 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 this.loadCurrentUser();
   }
+  Mytoken:string;
+  MyUser:Observable<IUser>;
 
   // tslint:disable-next-line: typedef
   loadCurrentUser() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.accountService.loadCurrentUser(token).subscribe(
-        () => {
-          console.log('loaded user');
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    }
+    this.Mytoken = localStorage.getItem('token');
+    console.log(this.Mytoken+"from app component");
+    this.accountService.loadCurrentUser(this.Mytoken);
+    this.MyUser=this.accountService.User;
+
   }
 }

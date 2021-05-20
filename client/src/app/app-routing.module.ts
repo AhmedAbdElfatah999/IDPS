@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MessagesResolver } from './account/messages.resolver';
 import { HomeComponent } from './home/home.component';
+import { MessagesComponent } from './messages/messages.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  {path: 'messages', component: MessagesComponent, resolve: {messages: MessagesResolver}},
   {
     path: 'idps',
     loadChildren: () =>
@@ -32,7 +35,7 @@ const routes: Routes = [
       import('./account/account.module').then((mod) => mod.AccountModule),
     data: { breadcrumb: { skip: true } },
   },
-  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
+  { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
 
 @NgModule({

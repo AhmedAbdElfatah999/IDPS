@@ -92,7 +92,7 @@ namespace API.Controllers
             
             return Ok();
         }
-        [Authorize]
+        
         [HttpGet("Account")]
         public async Task<ActionResult<DoctorDto>> GetCurrentUser()
         {
@@ -153,7 +153,9 @@ namespace API.Controllers
                 Email = doctor.Email,
                 Token =_tokenService.CreateToken(doctor),
                 DisplayName = doctor.Name,
-                LastLogin=LastLoginDate
+                LastLogin=LastLoginDate,
+                Id=doctor.Id,
+                PhotoUrl=doctor.PictureUrl
 
             };
         }

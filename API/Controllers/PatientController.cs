@@ -119,7 +119,9 @@ namespace API.Controllers
                 Email = patient.Email,
                 Token =_tokenService.CreateToken(patient),
                 DisplayName = patient.Name,
-                LastLogin=LastLoginDate
+                LastLogin=LastLoginDate,
+                PhotoUrl=patient.PictureUrl,
+                Id=patient.Id
             };
 
         }

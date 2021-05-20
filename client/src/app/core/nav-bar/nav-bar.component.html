@@ -108,15 +108,19 @@
               <li><a class="dropdown-item" href="#">Jobs</a></li>
             </ul>
           </li>
-          <li><ng-container *ngIf="(currentUser$| async)===null">
-            <a routerLink="/account/login" class="btn mr-2" href="#">login</a>
 
-          </ng-container>
-          <ng-container *ngIf="currentUser$|async" >
-            <a href="">Welcome {{(currentUser$|async).displayName}}</a>
-          <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
-          <a class="nav-link text-danger" *ngIf="(currentUser$ | async).displayName as UserName">{{UserName | uppercase}}</a>
+         <li class="nav-item">
+        <ng-container *ngIf="currentUser$.displayName !=null" >
+         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
+         </ng-container>
         </li>
+
+          <li class="lix"><ng-container *ngIf="currentUser$.displayName ===null" >
+            <a routerLink="/account/login" class="btn mr-2" href="#">login</a>
+          </ng-container>
+          <ng-container >
+            <a class="nav-link" href="">
+            <img src="assets/doctors/photo.jpg" class="img-circle rounded-circle mr-4">{{currentUser$.displayName}}</a>
           </ng-container>
           </li>
         </ul>

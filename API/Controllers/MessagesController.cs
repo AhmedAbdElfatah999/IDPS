@@ -10,6 +10,7 @@ using Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Core.Interfaces;
+using API.Extensions;
 
 namespace API.Controllers
 {
@@ -56,9 +57,9 @@ namespace API.Controllers
             var messagesFromRepo = await _messageRepo.GetMessagesForUser(messageParams);
 
             var messages = _mapper.Map<IEnumerable<MessageToReturnDto>>(messagesFromRepo);
-         /*
-            Response.AddPagination(messagesFromRepo.CurrentPage, messagesFromRepo.PageSize, 
-                messagesFromRepo.TotalCount, messagesFromRepo.TotalPages);*/
+         
+     Response.AddPagination(messagesFromRepo.CurrentPage, messagesFromRepo.PageSize, 
+                messagesFromRepo.TotalCount, messagesFromRepo.TotalPages);
             
             return Ok(messages);
         }

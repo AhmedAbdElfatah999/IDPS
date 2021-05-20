@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.createloginForm();
-    this.accountService.loadCurrentUser(this.accountService.MyToken);
+    this.accountService.loadCurrentUser(localStorage.getItem('token'));
   }
 
   // tslint:disable-next-line: typedef
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
-      rememberMe:new FormControl('',Validators.required)
+      rememberMe:new FormControl(true,Validators.required)
     });
   }
   // tslint:disable-next-line: typedef
@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
     this.accountService.login(this.loginForm.value).subscribe(
       () => {
         console.log('user logged in');
-        this.accountService.checkLoginStatus;
-        localStorage.setItem('token', this.accountService.MyToken);
       },
       (error) => {
         console.log(error);
