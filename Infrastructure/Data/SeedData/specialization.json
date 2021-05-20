@@ -1,143 +1,143 @@
 [
-    {
-   
-      "Name": "Allergists/Immunologists"
-    },
-    {
-
-      "Name": "Anesthesiologists"
-    },
-     {
-
-      "Name": "Cardiologists"
-    },
+  {
+ 
+    "Name": "Allergists/Immunologists"
+  },
   {
 
-      "Name": "Colon and Rectal Surgeons"
-    },
-      {
+    "Name": "Anesthesiologists"
+  },
+   {
 
-      "Name": "Critical Care Medicine Specialists"
-    },
+    "Name": "Cardiologists"
+  },
+{
+
+    "Name": "Colon and Rectal Surgeons"
+  },
     {
 
-      "Name": "Dermatologists"
-    },
+    "Name": "Critical Care Medicine Specialists"
+  },
+  {
+
+    "Name": "Dermatologists"
+  },
+  {
+
+    "Name": "Endocrinologists"
+  },
     {
 
-      "Name": "Endocrinologists"
-    },
-      {
-
-      "Name": "Emergency Medicine Specialists"
-    },
-      {
-
-      "Name": "Family Physicians"
-    },
+    "Name": "Emergency Medicine Specialists"
+  },
     {
 
-      "Name": "Gastroenterologists"
-    },
-    {
+    "Name": "Family Physicians"
+  },
+  {
 
-      "Name": "Geriatric Medicine Specialists"
-    },
-    {
+    "Name": "Gastroenterologists"
+  },
+  {
 
-      "Name": "Hematologists"
-    },
-    {
+    "Name": "Geriatric Medicine Specialists"
+  },
+  {
 
-      "Name": "Hospice and Palliative Medicine Specialists"
-    },
-    {
+    "Name": "Hematologists"
+  },
+  {
 
-      "Name": "Infectious Disease Specialists"
-    },
-    {
+    "Name": "Hospice and Palliative Medicine Specialists"
+  },
+  {
 
-      "Name": "Internists"
-    },
-    {
+    "Name": "Infectious Disease Specialists"
+  },
+  {
 
-      "Name": "Medical Geneticists"
-    },
-    {
+    "Name": "Internists"
+  },
+  {
 
-      "Name": "Nephrologists"
-    },
-    {
+    "Name": "Medical Geneticists"
+  },
+  {
 
-      "Name": "Neurologists"
-    },
-    {
+    "Name": "Nephrologists"
+  },
+  {
 
-      "Name": "Obstetricians and Gynecologists"
-    } ,   
-    {
+    "Name": "Neurologists"
+  },
+  {
 
-      "Name": "Oncologists"
-    } ,
-    {
+    "Name": "Obstetricians and Gynecologists"
+  } ,   
+  {
 
-      "Name": "Ophthalmologists"
-    } ,
-    {
+    "Name": "Oncologists"
+  } ,
+  {
 
-      "Name": "Osteopaths"
-    } ,
-    {
+    "Name": "Ophthalmologists"
+  } ,
+  {
 
-      "Name": "Otolaryngologists"
-    } ,
-    {
+    "Name": "Osteopaths"
+  } ,
+  {
 
-      "Name": "Pathologists"
-    } ,
-    {
+    "Name": "Otolaryngologists"
+  } ,
+  {
 
-      "Name": "Pediatricians"
-    } ,
-    {
+    "Name": "Pathologists"
+  } ,
+  {
 
-      "Name": "Physiatrists"
-    } ,
-    {
+    "Name": "Pediatricians"
+  } ,
+  {
 
-      "Name": "Plastic Surgeons"
-    } ,
-    {
+    "Name": "Physiatrists"
+  } ,
+  {
 
-      "Name": "Podiatrists"
-    } ,
-    {
+    "Name": "Plastic Surgeons"
+  } ,
+  {
 
-      "Name": "Preventive Medicine Specialists"
-    } ,
-    {
+    "Name": "Podiatrists"
+  } ,
+  {
 
-      "Name": "Psychiatrists"
-    } ,
-    {
+    "Name": "Preventive Medicine Specialists"
+  } ,
+  {
 
-      "Name": "Pulmonologists"
-    } ,
-    {
+    "Name": "Psychiatrists"
+  } ,
+  {
 
-      "Name": "Radiologists"
-    } ,
-    {
+    "Name": "Pulmonologists"
+  } ,
+  {
 
-      "Name": "Rheumatologists"
-    } ,
-    {
+    "Name": "Radiologists"
+  } ,
+  {
 
-      "Name": "General Surgeons"
-    } ,
-    {
+    "Name": "Rheumatologists"
+  } ,
+  {
 
-      "Name": "Urologists"
-    } 
+    "Name": "General Surgeons"
+  } ,
+  {
 
-  ]
+    "Name": "Urologists"
+  } 
+
+]

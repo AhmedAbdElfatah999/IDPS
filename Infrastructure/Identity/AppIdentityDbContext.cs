@@ -23,16 +23,6 @@ namespace Infrastructure.Identity
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Message>()
-                .HasOne(u => u.Doctor)
-                .WithMany(m => m.MyMessage)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Message>()
-                .HasOne(u => u.Patient)
-                .WithMany(m => m.MyMessage)
-                .OnDelete(DeleteBehavior.Restrict);
-
 
         }
     }
