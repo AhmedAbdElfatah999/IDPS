@@ -32,7 +32,13 @@ namespace API.Helpers
                     .MapFrom(u =>u.Patient.Name)) 
 
                  .ForMember(m => m.PatientPhotoUrl, opt => opt
-                    .MapFrom(u =>u.Patient.PictureUrl))                     
+                    .MapFrom(u =>u.Patient.PictureUrl))  
+
+                 .ForMember(m => m.PatientId, opt => opt
+                    .MapFrom(u =>u.Patient.Id)) 
+
+                 .ForMember(m => m.DoctorId, opt => opt
+                    .MapFrom(u =>u.Doctor.Id)) 
 
                 .ForMember(m => m.Content, opt => opt
                     .MapFrom(u =>u.Content))        

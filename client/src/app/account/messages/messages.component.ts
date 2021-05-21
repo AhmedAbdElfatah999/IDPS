@@ -1,16 +1,18 @@
+import { PaginatedResult, Pagination } from '../../shared/models/pagination';
 import { Component, OnInit } from '@angular/core';
+import { Message } from '../../shared/models/message';
+import { AccountService } from '../account.service';
+import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { AccountService } from '../account/account.service';
-import { AlertifyService } from '../account/alertify.service';
-import { Message } from '../shared/models/message';
-import { PaginatedResult, Pagination } from '../shared/models/pagination';
+import { AlertifyService } from '../alertify.service';
+
 
 @Component({
-  selector: 'app-patient-messages',
-  templateUrl: './patient-messages.component.html',
-  styleUrls: ['./patient-messages.component.scss']
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.scss']
 })
-export class PatientMessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit {
 
   messages: Message[];
   pagination: Pagination;
@@ -27,7 +29,7 @@ export class PatientMessagesComponent implements OnInit {
   }
 
   loadMessages() {
-    this.userService.getMessages(this.userService.User.Id, this.pagination.currentPage,
+    this.userService.getMessages(this.userService.User.id, this.pagination.currentPage,
       this.pagination.itemsPerPage, this.messageContainer)
       .subscribe((res: PaginatedResult<Message[]>) => {
         this.messages = res.result;

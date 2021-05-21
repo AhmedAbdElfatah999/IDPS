@@ -114,11 +114,14 @@
          <a class="nav-link" [routerLink]="['/messages']">Messages</a>
          </ng-container>
         </li>
+            <li class="lix"><a class="btn mr-2" (click)="logout()">Logout</a></li>
 
-          <li class="lix"><ng-container *ngIf="currentUser$.displayName ===null" >
+
+          <li class="lix">
+          <ng-container *ngIf="currentUser$.displayName ===null" >
             <a routerLink="/account/login" class="btn mr-2" href="#">login</a>
           </ng-container>
-          <ng-container >
+          <ng-container *ngIf="currentUser$.displayName !=null" >
             <a class="nav-link" href="">
             <img src="assets/doctors/photo.jpg" class="img-circle rounded-circle mr-4">{{currentUser$.displayName}}</a>
           </ng-container>

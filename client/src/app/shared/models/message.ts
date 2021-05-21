@@ -1,13 +1,15 @@
 export interface Message {
   id: number;
-  senderId: number;
+  senderId: string;
   patientName: string;
   patientPhotoUrl: string;
-  recipientId: number;
+  recipientId: string;
   doctorName: string;
   doctorPhotoUrl: string;
   content: string;
   isRead: boolean;
   dateRead: Date;
   messageSent: Date;
+  doctorId:string;
+  patientId:string;
 }

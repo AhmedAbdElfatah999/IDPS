@@ -14,5 +14,8 @@ namespace API.Dtos
         public bool IsRead { get; set; }
         public DateTime? DateRead { get; set; }
         public DateTime MessageSent { get; set; }
+
+        public string DoctorId { get; set; }
+        public string PatientId { get; set; }
     }
 }

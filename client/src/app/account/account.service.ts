@@ -104,6 +104,7 @@ patientLogin(values: any) {
   // tslint:disable-next-line: typedef
   Logout() {
     localStorage.removeItem('token');
+    localStorage.clear();
     this.currentUserSource.next(null);
     this.router.navigateByUrl('/');
   }
@@ -152,12 +153,25 @@ patientLogin(values: any) {
       );
   }
 
-  deleteMessage(id: number, userId: number) {
+
+
+
+  getMessageThread(id: string, recipientId: string) {
+    return this.http.get<Message[]>(this.baseUrl + 'user/' + id + '/messages/thread/' + recipientId);
+  }
+
+  sendMessage(id: string, message: Message) {
+    return this.http.post(this.baseUrl + 'user/' + id + '/messages', message);
+  }
+
+  deleteMessage(id: number, userId:string) {
     return this.http.post(this.baseUrl + 'user/' + userId + '/messages/' + id, {});
   }
 
-
-
+  markAsRead(userId: string, messageId: number) {
+    this.http.post(this.baseUrl + 'user/' + userId + '/messages/' + messageId + '/read', {})
+      .subscribe();
+  }
 
 
 

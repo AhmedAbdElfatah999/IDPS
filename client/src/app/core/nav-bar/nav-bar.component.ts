@@ -24,4 +24,9 @@ export class NavBarComponent implements OnInit {
     console.log(localStorage.getItem('user'));
    this.LoginStatus$=this.accountService.isLoggesIn;
   }
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.clear();
+
+  }
 }

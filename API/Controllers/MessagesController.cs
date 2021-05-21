@@ -82,7 +82,6 @@ namespace API.Controllers
             var sender = await _repo.GetByIdAsync(userId);
 
             messageForCreationDto.DoctorId = userId;
-           
             messageForCreationDto.SenderId=userId;  
             var recipient = await _repo.GetByIdAsync(messageForCreationDto.PatientId);
             messageForCreationDto.ReceieverId=recipient.Id;
@@ -95,7 +94,7 @@ namespace API.Controllers
 
             if (await _messageRepo.SaveAll())
             {
-                var messageToReturn = _mapper.Map<MessageForCreationDto>(message);
+                var messageToReturn = _mapper.Map<MessageToReturnDto>(message);
 
                 return Ok(messageToReturn);
             }
@@ -121,7 +120,7 @@ namespace API.Controllers
 
             if (await _messageRepo.SaveAll())
             {
-                var messageToReturn = _mapper.Map<MessageForCreationDto>(message);
+                var messageToReturn = _mapper.Map<MessageToReturnDto>(message);
                 return Ok(messageToReturn);
             }
 
